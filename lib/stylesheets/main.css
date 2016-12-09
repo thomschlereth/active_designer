@@ -17,8 +17,21 @@ body {
 }
 
 .jumbotron {
-  height: 80vh;
+  width: 95%;
+  height: 100%;
+  position: absolute;
+  top: 12%;
+  left: 2.5%;
+  position: absolute;
+  padding-top: 2%;
+  padding-right: 2%;
+  z-index: 1;
+  background-color: #788DB0;
 }
+
+/*.jumbotron {
+  height: 80vh;
+}*/
 
 h2 {
   position: absolute;;
@@ -36,4 +49,15 @@ h2 {
 p {
   margin-top: 0;
   margin-bottom: 0;
+}
+
+.alert {
+  width: 98%;
+  margin: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.alert-warning {
+  background-color: #EDC37E;
 }
