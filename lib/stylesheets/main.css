@@ -1,0 +1,39 @@
+body {
+  background-color: #4b5b75;
+}
+
+.btn-default {
+  padding: 0%;
+  color: #4b5b75 !important;
+}
+
+.btn-default:hover {
+  padding: 0%;
+  color: #38465C !important;
+}
+
+.container-fluid {
+  margin-top: 10px;
+}
+
+.jumbotron {
+  height: 80vh;
+}
+
+h2 {
+  position: absolute;;
+  top: 20%;
+}
+
+.taco {
+  margin-right: 38%;
+}
+
+.column-print-out {
+  margin-left: 3%;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 0;
+}

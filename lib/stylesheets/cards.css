@@ -1,0 +1,23 @@
+.card-title {
+  float: left;
+}
+
+.trashcan {
+  float: right;
+}
+
+.table-form {
+  width: 100%;
+}
+
+.column-form {
+  width: 70%;
+}
+
+.tag-danger {
+  background-color: darkred;
+}
+
+.fa-trash {
+  color: darkred;
+}
