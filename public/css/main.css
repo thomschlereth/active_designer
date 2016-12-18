@@ -1,3 +1,8 @@
+.navbar {
+  box-shadow: 0px 1px 5px 0px #4A4F52;
+  background: linear-gradient(#373A3C,#2B2E30);
+}
+
 body {
   background-color: #4b5b75;
 }
@@ -29,10 +34,6 @@ body {
   background-color: #788DB0;
 }
 
-/*.jumbotron {
-  height: 80vh;
-}*/
-
 h2 {
   position: absolute;;
   top: 20%;
@@ -53,9 +54,9 @@ p {
 
 .alert {
   width: 98%;
-  margin: 0;
-  position: relative;
-  z-index: 2;
+  margin: 1%;
+  position:absolute;
+  z-index: 1000 !important;
 }
 
 .alert-warning {
