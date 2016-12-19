@@ -16,7 +16,6 @@ $(document).ready(function() {
     }
     function doStuff(ple) {
       $(ple).append(
-
         "<div class='col-sm-3'>" +
           "<div class='card'>" +
             "<div class='card-header'>" +
