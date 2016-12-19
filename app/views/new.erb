@@ -8,7 +8,6 @@
   <script src="https://www.atlasestateagents.co.uk/javascript/tether.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
   <script src="js/main.js"></script>
-  <!-- <script src="./lib/javascripts/errors.js"></script> -->
   <script src="js/upload.js"></script>
   <link rel="stylesheet" href='css/cards.css' >
   <link rel="stylesheet" href='css/main.css' >
@@ -48,6 +47,33 @@
   </div>
   <div class='container-fluid'>
     <div class='row'>
+      <% @schema[:tables].keys.map do |table| %>
+        <div class='col-sm-3'>
+          <div class='card'>
+            <div class='card-header'>
+              <h4 class='card-title table-title' data-toggle='popover' data-trigger='hover' data-content='Edit table name'>
+                <%= table.to_s %>
+              </h4>
+              <div class='trashcan'>
+                <i class='fa fa-trash fa-2x' data-toggle='popover' data-trigger='hover' data-content='Destroy table'></i>
+              </div>
+            </div>
+            <div class='card-block'>
+              <ul class='list-group list-group-flush'>
+                <% @schema[:tables][table][:columns].keys.map do |column| %>
+                  <li class='list-group-item'>
+                  <span class='tag tag-danger tag-pill float-xs-right' data-toggle='popover' data-trigger='hover' data-content='Edit type'>type</span>
+                  <span class='column-title' data-toggle='popover' data-trigger='hover' data-content='Edit column name'><%= column.to_s %></span>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+            <div class='card-footer'>
+              <i class='fa fa-plus-square' data-toggle='popover' data-trigger='hover' data-content='Add column'></i>
+            </div>
+          </div>
+        </div>
+      <% end %>
 
     </div>
 
