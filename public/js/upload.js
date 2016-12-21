@@ -1,6 +1,4 @@
 $(document).ready(function() {
-// const Error = require('./errors.js');
-// errors = new Error()
 
   $('.fa-print').click(function() {
     if ( !errors() ) {
@@ -109,4 +107,5 @@ $(document).ready(function() {
     }
     return pluralized;
   };
+
 })
