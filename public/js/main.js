@@ -20,63 +20,35 @@ $(document).ready(function() {
   }
 
   function createStartColumns(table,tableName) {
+
     let columns = Object.keys(table.columns)
+
     let tableHTML = $('.table-title').filter(function() {
       return $(this).text() === tableName
     })
     let card = tableHTML.parents('.card')
-    if(tableName === "users") {
-    }
+
     for(let i = 0;i < columns.length;i++) {
       let columnName = columns[i]
       let columnType = table.columns[columnName]
-      addColumn(card, columnName, columnType)
+      columnHTML(card, columnName, columnType)
     }
   }
 
   function addTable(tableName) {
-    if ($('input').length > 0) {
-      return
-    }
+    if (openEditChecker()) { return }
     let rows = $('.container-fluid').children()
     for (let i = 0;i < rows.length; i++) {
       if (rows[i] === rows[rows.length -1] && rows[rows.length -1].children.length === 4) {
         $('.container-fluid').append('<div class="row"></div>')
-        doStuff($('.container-fluid').children().last())
-        return
+        $($('.container-fluid').children().last()).append(tableHTML(tableName))
+        break;
       } else if (rows[i].children.length < 4) {
-        doStuff(rows[i])
-        return
+        $(rows[i]).append(tableHTML(tableName))
+        break;
       }
     }
-    function doStuff(ple) {
-      $(ple).append(
-        "<div class='col-sm-3'>" +
-          "<div class='card'>" +
-            "<div class='card-header'>" +
-              "<h4 class='card-title table-title' data-toggle='popover' data-trigger='hover' data-content='Edit table name'>" +
-                `${tableName}` +
-              "</h4>" +
-              "<div class='trashcan'>" +
-                "<i class='fa fa-trash fa-2x' data-toggle='popover' data-trigger='hover' data-content='Destroy table'></i>" +
-              "</div>" +
-            "</div>" +
-            "<div class='card-block'>" +
-              "<ul class='list-group list-group-flush'>" +
-              "</ul>" +
-            "</div>" +
-            "<div class='card-footer'>" +
-              "<i class='fa fa-plus-square' data-toggle='popover' data-trigger='hover' data-content='Add column'></i>" +
-            "</div>" +
-          "</div>" +
-        "</div>"
-
-      );
-      destroyTable()
-      addColumnListener()
-      editTableName()
-      $('[data-toggle="popover"]').popover()
-    }
+    addListeners()
   }
 
   $('.fa-plus-square-o').click(function(){
@@ -93,58 +65,21 @@ $(document).ready(function() {
     });
   }
 
-  function editTableName(){
-    $('body').unbind('click')
-    $('.table-title').click(function() {
-      if ($('input').length === 0) {
-        $(this).popover('hide');
-        this.outerHTML = "<form><input class='table-form' type='text' name='tableName' value='" + this.innerText + "'></form>";
-        $('.table-form').keypress(function (e) {
-          var key = e.which;
-          if(key == 13) {
-            let tableName = $('.table-form')[0].value;
-            this.parentElement.outerHTML =
-              "<h4 class='card-title table-title' data-toggle='popover' data-trigger='hover' data-content='Edit table name'>" +
-                tableName +
-              "</h4>"
-            $('[data-toggle="popover"]').popover()
-            count = 0
-            editTableName()
-            return false;
-          }
-        });
-        let count = 0
-        $('body').click(function() {
-          if(!$(event.target).is('.table-form') && count >= 1 ) {
-            let tableName = $('.table-form')[0].value;
-            $('.table-form')[0].parentElement.outerHTML =
-              "<h4 class='card-title table-title' data-toggle='popover' data-trigger='hover' data-content='Edit table name'>" +
-                tableName +
-              "</h4>"
-            $('[data-toggle="popover"]').popover()
-            count = 0
-            editTableName()
-          }
-          count++
-        });
-      }
-    });
-
-  }
-
-  function addColumnListener(){
+  function addColumn() {
     $('.fa-plus-square').unbind('click')
     $('.fa-plus-square').click(function() {
-      if ($('input').length === 0) {
-        let card = $(this).parents('.card')
-        addColumn(card, "column", "type")
-      }
+      if (openEditChecker()) { return }
+      let card = $(this).parents('.card')
+      columnHTML(card, "column", "type")
     });
   }
 
-  $(function () {
+  function addListeners(){
+    destroyTable()
+    editTableName()
+    addColumn()
     $('[data-toggle="popover"]').popover()
-  })
+  }
 
   createTablesFromParams()
 });

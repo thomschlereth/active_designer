@@ -1,37 +1,37 @@
 function editColumnName(){
   $('body').unbind('click')
   $('.column-title').click(function() {
-    if ($('input').length === 0) {
-      $(this).popover('hide');
-      this.outerHTML = "<form><input class='column-form' type='text' name='tableName' value='" + this.innerText + "'></form>";
+    if (openEditChecker()) { return }
+    $(this).popover('hide');
+    this.outerHTML = "<form><input class='column-form' type='text' name='tableName' value='" + this.innerText + "'></form>";
+    enterKeypressColumn()
+    clickOutsideColumnKeypress()
+  });
+}
 
-      $('.column-form').keypress(function (e) {
-        var key = e.which;
-        if(key == 13) {
-          let columnName = $('.column-form')[0].value;
-          this.parentElement.outerHTML =
-          "<span class='column-title' data-toggle='popover' data-trigger='hover' data-content='Edit column name'>" + columnName + "</span>"
-          $('[data-toggle="popover"]').popover()
-          count = 0
-          editColumnName()
-          return false;
-        }
-      });
+function enterKeypressColumn() {
+  $('.column-form').keypress(function (e) {
+    var key = e.which;
+    if(key == 13) {
+      updateColumnName()
+      return false;
+    }
+  });
+}
 
-      let count = 0
-      $('body').click(function() {
-        if(!$(event.target).is('.column-form') && count >= 1 ) {
-          let columnName = $('.column-form')[0].value;
+function updateColumnName() {
+  let columnName = $('.column-form')[0].value;
+  $('.column-form')[0].parentElement.outerHTML =
+  "<span class='column-title' data-toggle='popover' data-trigger='hover' data-content='Edit column name'>" + columnName.toLowerCase() + "</span>"
+  $('[data-toggle="popover"]').popover()
+  editColumnName()
+}
 
-          $('.column-form')[0].parentElement.outerHTML =
-          "<span class='column-title' data-toggle='popover' data-trigger='hover' data-content='Edit column name'>" + columnName.toLowerCase() + "</span>"
-          $('[data-toggle="popover"]').popover()
-          count = 0
-          editColumnName()
-        }
-        count++
-
-      });
+function clickOutsideColumnKeypress() {
+  $('body').click(function() {
+    if($(event.target).is('span.column-title')) { return }
+    if(!$(event.target).is('.column-form')) {
+      updateColumnName()
     }
   });
 }
@@ -71,7 +71,7 @@ function editTypeName(columnType){
   });
 }
 
-function addColumn(card, columnName, columnType) {
+function columnHTML(card, columnName, columnType) {
   card.find('.list-group').append(
     "<li class='list-group-item'>" +
     columnTypeHTML(columnType) +
