@@ -171,7 +171,6 @@ $(document).ready(function() {
   }
 
   function editTypeName(columnType){
-    // console.log(columnType)
     $('.tag-pill').click(function() {
       if ($('input').length === 0) {
         $(this).popover('hide');
@@ -225,7 +224,6 @@ $(document).ready(function() {
     }
     card.find('.list-group').append(
       "<li class='list-group-item'>" +
-      // `<span class='tag tag-danger tag-pill float-xs-right' data-toggle='popover' data-trigger='hover' data-content='Edit type'>${columnType}</span>` +
       tag +
       `<span class='column-title' data-toggle='popover' data-trigger='hover' data-content='Edit column name'>${columnName}</span>` +
       "</li>"
