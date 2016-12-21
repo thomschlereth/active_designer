@@ -1,5 +1,40 @@
 $(document).ready(function() {
-  $('.fa-plus-square-o').click(function(){
+
+  function createTablesFromParams() {
+    if (location.href.includes("?schema=")) {
+      let encodedParams = location.href.split('?')[1]
+      let decodedParams = decodeURIComponent(encodedParams)
+      let schema = JSON.parse(decodedParams.split('=')[1])
+      createStartTables(schema)
+    }
+  }
+
+  function createStartTables(schema) {
+    let tableNames = Object.keys(schema.tables)
+    for(let i = 0;i < tableNames.length;i++) {
+      let tableName = tableNames[i]
+      let table = schema.tables[tableName]
+      addTable(tableName)
+      createStartColumns(table,tableName)
+    }
+  }
+
+  function createStartColumns(table,tableName) {
+    let columns = Object.keys(table.columns)
+    let tableHTML = $('.table-title').filter(function() {
+      return $(this).text() === tableName
+    })
+    let card = tableHTML.parents('.card')
+    if(tableName === "users") {
+    }
+    for(let i = 0;i < columns.length;i++) {
+      let columnName = columns[i]
+      let columnType = table.columns[columnName]
+      addColumn(card, columnName, columnType)
+    }
+  }
+
+  function addTable(tableName) {
     if ($('input').length > 0) {
       return
     }
@@ -20,7 +55,7 @@ $(document).ready(function() {
           "<div class='card'>" +
             "<div class='card-header'>" +
               "<h4 class='card-title table-title' data-toggle='popover' data-trigger='hover' data-content='Edit table name'>" +
-                "table name" +
+                `${tableName}` +
               "</h4>" +
               "<div class='trashcan'>" +
                 "<i class='fa fa-trash fa-2x' data-toggle='popover' data-trigger='hover' data-content='Destroy table'></i>" +
@@ -38,10 +73,14 @@ $(document).ready(function() {
 
       );
       destroyTable()
-      addColumn()
+      addColumnListener()
       editTableName()
       $('[data-toggle="popover"]').popover()
     }
+  }
+
+  $('.fa-plus-square-o').click(function(){
+    addTable("table_name")
   })
 
   function destroyTable(){
@@ -131,18 +170,18 @@ $(document).ready(function() {
     });
   }
 
-  function editTypeName(){
+  function editTypeName(columnType){
+    // console.log(columnType)
     $('.tag-pill').click(function() {
       if ($('input').length === 0) {
         $(this).popover('hide');
         $('body').append(
           "<form><input class='type-form' type='hidden' value='placeholder'></form>"
         )
-
         this.outerHTML =
         "<div class='dropdown open float-xs-right'>" +
           "<div class='btn btn-default btn-xs dropdown-toggle' id='dropdownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
-            "type" +
+            columnType +
           "</div>" +
           "<div class='dropdown-menu' aria-labelledby='dropdownMenuButton'>" +
             "<div class='dropdown-item'>integer</div>" +
@@ -161,31 +200,44 @@ $(document).ready(function() {
           "<span class='tag tag-default tag-pill float-xs-right' data-toggle='popover' data-trigger='hover' data-content='Edit type'>" + typeName + "</span>"
           $('[data-toggle="popover"]').popover()
           $('input')[0].outerHTML = ""
-          editTypeName()
+          editTypeName(columnType)
         });
       }
     });
   }
 
-  function addColumn(){
+  function addColumnListener(){
     $('.fa-plus-square').unbind('click')
     $('.fa-plus-square').click(function() {
       if ($('input').length === 0) {
-        $(this).parents('.card').find('.list-group').append(
-          "<li class='list-group-item'>" +
-          "<span class='tag tag-danger tag-pill float-xs-right' data-toggle='popover' data-trigger='hover' data-content='Edit type'>type</span>" +
-          "<span class='column-title' data-toggle='popover' data-trigger='hover' data-content='Edit column name'>column</span>" +
-          "</li>"
-        );
-        $('[data-toggle="popover"]').popover()
-        editColumnName()
-        editTypeName()
+        let card = $(this).parents('.card')
+        addColumn(card, "column", "type")
       }
     });
+  }
+
+  function addColumn(card, columnName, columnType) {
+    let tag = ""
+    if (columnType === "type") {
+      tag = `<span class='tag tag-danger tag-pill float-xs-right' data-toggle='popover' data-trigger='hover' data-content='Edit type'>${columnType}</span>`
+    } else {
+      tag = `<span class='tag tag-default tag-pill float-xs-right' data-toggle='popover' data-trigger='hover' data-content='Edit type'>${columnType}</span>`
+    }
+    card.find('.list-group').append(
+      "<li class='list-group-item'>" +
+      // `<span class='tag tag-danger tag-pill float-xs-right' data-toggle='popover' data-trigger='hover' data-content='Edit type'>${columnType}</span>` +
+      tag +
+      `<span class='column-title' data-toggle='popover' data-trigger='hover' data-content='Edit column name'>${columnName}</span>` +
+      "</li>"
+    );
+    $('[data-toggle="popover"]').popover()
+    editColumnName()
+    editTypeName(columnType)
   }
 
   $(function () {
     $('[data-toggle="popover"]').popover()
   })
 
+  createTablesFromParams()
 });

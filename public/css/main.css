@@ -50,8 +50,10 @@ h1 {
 
 .jumbotron {
   width: 95%;
-  height: 80%;
-  min-height: 510px; 
+  /*height: 80%;
+  min-height: 510px;*/
+  display:block;
+  overflow:auto;
   position: absolute;
   top: 12%;
   left: 2.5%;

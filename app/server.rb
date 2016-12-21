@@ -10,7 +10,9 @@ class Server < Sinatra::Base
   end
 
   get '/new' do
-    @schema = JSON.parse(params["schema"], :symbolize_names => true)
+    if params["schema"]
+      @schema = JSON.parse(params["schema"], :symbolize_names => true)
+    end
     erb :new
   end
 
