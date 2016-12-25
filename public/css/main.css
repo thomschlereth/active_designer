@@ -44,14 +44,8 @@ h1 {
   color: #38465C !important;
 }
 
-.container-fluid {
-  margin-top: 10px;
-}
-
 .jumbotron {
   width: 95%;
-  /*height: 80%;
-  min-height: 510px;*/
   display:block;
   overflow:auto;
   position: absolute;
@@ -70,7 +64,7 @@ h2 {
 }
 
 .taco {
-  margin-right: 38%;
+  margin-right: 12%;
 }
 
 .column-print-out {
@@ -91,4 +85,97 @@ p {
 
 .alert-warning {
   background-color: #EDC37E;
+}
+
+.canvasBorder {
+  background: linear-gradient(#373A3C,#2B2E30);
+  border: 3px solid #CCC;
+  height: 88vh;
+  width: 98%;
+  margin-top: .5%;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: scroll;
+  direction: rtl;
+  border-radius: 7px;
+}
+
+.jsPlumbBoundary {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  overflow: visible;
+  background-color: inherit;
+}
+
+.jtk-connector {
+  z-index:5;
+  opacity: .6;
+}
+
+.jtk-endpoint {
+  z-index:5;
+}
+
+.switch {
+  position: absolute;
+  width: 160px;
+  height: 34px;
+}
+
+.scroller {
+  margin-top: .3%;
+  margin-right: 12%;
+  margin-left: 12%;
+  width: 160px;
+  height: 34px;
+}
+
+.slider-box {
+  position: absolute;
+  height: 10px;
+  top: 50%;
+  left: 0;
+  right: 0;
+  background-color: #4B5B75;
+  border: 1px solid #ccc;
+  z-index: 0;
+  border-radius: 4px;
+}
+
+.slider.round {
+  position: absolute;
+  border-radius: 20%;
+  height: 18px;
+  width: 30px;
+  left: 65px;
+  top:38.5%;
+  background-color: #4B5B75;
+  border: 1px solid #ccc;
+}
+
+.zoom-button {
+  color: #ccc;
+  position: absolute;
+  top:20%;
+  opacity: 1;
+}
+
+.zoom-button:active {
+  opacity: .7;
+}
+
+#zoom-out {
+  left: -21%;
+}
+
+#zoom-in {
+  left: 104%;
+}
+
+.fa-arrows-h {
+  position: absolute;
+  z-index: 1;
+  left: 25%;
+  top: 2.5%;
 }

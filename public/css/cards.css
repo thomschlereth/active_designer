@@ -1,9 +1,36 @@
+.card {
+  position: absolute;
+  width: 200px;
+  z-index: 4;
+
+}
+
+.card-block {
+  padding: 10px;
+}
+
 .card-title {
   float: left;
+  margin: 0px;
+  font-size: 18px;
 }
 
 .trashcan {
   float: right;
+}
+
+.card-footer {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.card-header {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .table-form {
@@ -14,10 +41,51 @@
   width: 70%;
 }
 
+.column-title {
+  margin-left: 5px;
+  float: center;
+}
+
+.hidden-anchor {
+  opacity: .0;
+}
+
 .tag-danger {
   background-color: darkred;
 }
 
+.fa-link {
+  float: left;
+  margin-right: 5px;
+  margin-top: 3px;
+}
+
+.fa-arrows {
+  float: left;
+  margin-top: 2px;
+}
+
 .fa-trash {
   color: darkred;
+}
+
+.fa-plus-square {
+  float: right;
+  margin-top: 2px;
+  margin-right: 0px;
+}
+
+.list-group-item {
+  padding: 2px;
+  height: 26px;
+  max-width: 250px;
+  direction:ltr;
+  overflow-x: scroll !important;
+}
+
+.twe {
+  /*width: 100px;*/
+  float: left;
+  position: absolute;
+  overflow-x: scroll; !important;
 }
