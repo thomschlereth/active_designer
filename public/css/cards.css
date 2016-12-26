@@ -2,7 +2,6 @@
   position: absolute;
   width: 200px;
   z-index: 4;
-
 }
 
 .card-block {
@@ -79,12 +78,10 @@
   padding: 2px;
   height: 26px;
   max-width: 250px;
-  direction:ltr;
   overflow-x: scroll !important;
 }
 
 .twe {
-  /*width: 100px;*/
   float: left;
   position: absolute;
   overflow-x: scroll; !important;

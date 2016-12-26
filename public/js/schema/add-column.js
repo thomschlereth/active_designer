@@ -85,7 +85,7 @@ function columnHTML(card, columnName, columnType) {
   $('[data-toggle="popover"]').popover()
   editColumnName()
   editTypeName(columnType)
-  return listGroup.children()[listGroup.length -1]
+  return listGroup[0].children[listGroup[0].children.length -1]
 }
 
 function columnTypeHTML(columnType) {

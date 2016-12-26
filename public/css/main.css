@@ -96,7 +96,7 @@ p {
   margin-left: auto;
   margin-right: auto;
   overflow: scroll;
-  direction: rtl;
+  /*direction: rtl;*/
   border-radius: 7px;
 }
 

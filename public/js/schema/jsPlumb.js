@@ -1,9 +1,5 @@
 let zoom = .7;
 let j = null;
-// let j = jsPlumb.getInstance({
-//   Container:"foo"
-  // Detachable
-// });
 
 jsPlumb.ready(function() {
   let canvasLeft = 0
@@ -51,40 +47,6 @@ jsPlumb.ready(function() {
 
 });
 
-// function addSourceToTable(j,card) {
-//
-//   j.addEndpoint(card, {
-//     isSource:true,
-//     anchor:"Center",
-//     endpoint:["Dot", { radius:9, cssClass: 'hidden-anchor' }],
-//     connectorStyle: { strokeWidth:4, stroke:'#4B5B75' },
-//     connectorOverlays:[
-//         [ "PlainArrow", { width:12, length:18, location:1 } ],
-//       ],
-//     maxConnections:3
-//
-//   });
-// }
-//
-//
-// function addReferenceReciever(j,card) {
-//   j.addEndpoint(card, {
-//     isTarget:true,
-//     anchor:"Center",
-//     endpoint:["Rectangle", { width: 100, height: 100 }],
-//     maxConnections:3,
-//   });
-//
-//   j.bind("beforeDrop", function(params) {
-//     let currentCard = $(params.dropEndpoint.element)
-//     let tableTitle = currentCard.children('.card-header').children('.card-title')[0].innerText
-//     columnHTML(currentCard,`${tableTitle}_id`,'reference')
-//     return true
-//   });
-// }
-//
-//
-//
 function setCardDraggable(j,card) {
   j.draggable(card, {filter:':not(.fa-arrows)'});
 }

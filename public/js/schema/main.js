@@ -138,7 +138,7 @@ $(document).ready(function() {
             source:connectingLink,
             target:column,
             anchors:["Center", "Continuous" ],
-            endpoint:["Dot", { cssClass: 'hidden-anchor' }],
+            endpoint:["Dot", { radius: 1}],
             paintStyle: { strokeWidth:4, stroke:'darkred' },
             detachable: false,
             maxConnections:-1
