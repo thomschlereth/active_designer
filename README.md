@@ -18,5 +18,5 @@ This project is currently setup as a webapp. After it was setup as so I realized
 This project is built where the guts could be ripped out and this could take in schema's for languages other than Ruby's Active Record. It could then be made into a Package for said langauge.
 
 
-[![ScreenShot](https://raw.github.com/thompickett/sql-helper/master/sql-preview.png)](https://youtu.be/NK66ipPWqSk)
+[![ScreenShot](https://raw.github.com/thompickett/sql-helper/master/public/sql-youtube-preview.png)](https://youtu.be/NK66ipPWqSk)
 
