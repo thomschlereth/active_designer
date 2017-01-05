@@ -22,6 +22,7 @@ class SchemaCreator
   end
 
   def create_tables(schema)
+    # tables = []
     tables = {}
     table_name = ""
     schema.each do |line|
@@ -31,7 +32,7 @@ class SchemaCreator
       elsif line.include?("t.")
         type = format_type(line)
         name = format_name(line)
-        tables[table_name]["columns"][name] = type #if conditions(line)
+        tables[table_name]["columns"][name] = type
       elsif line.include?("add_foreign_key")
         @references << parts = line.split(" ")
       end
@@ -51,10 +52,6 @@ class SchemaCreator
     end
     references
   end
-
-  # def conditions(line)
-
-  # end
 
   def format_name(line)
     name = line.split(" ")[1].delete("\",")

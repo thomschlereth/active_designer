@@ -4,7 +4,6 @@
 <style>
 
 .item {
-  position: absolute;
   height:80px; width: 80px;
   border: 1px solid blue;
   background-color: blue;
@@ -15,7 +14,6 @@
   background-color: green;
 }
 .item1 {
-  z-index: 1000;
   height:20px; width: 20px;
   border: 1px solid black;
 }
@@ -28,30 +26,22 @@
   margin-right: auto;
   overflow: auto;
   border-radius: 3px;
-
 }
 .boundary {
-  min-height: 600px;
+  height: 600px;
+  width: 1000px;
   position: relative;
   overflow: visible;
   background-color: inherit;
-  max-width: 1000px;
-  margin-top: 15px;
 }
 
-/*.boundary {
-  position: absolute;
-  left: 20px;
-  min-height:600px;
-  min-width: 1000px;
-  border: 2px solid green;
-}*/
 </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="./jsPlumb-2.2.8.js"></script>
+<script src="./public/js/jsPlumb-2.2.8.js"></script>
 </head>
 <body>
+
   <div id="bar" class="border" >
     <div id="foo" class="boundary" >
 
