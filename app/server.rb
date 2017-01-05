@@ -24,7 +24,8 @@ class Server < Sinatra::Base
     content_type :json
     schema = SchemaCreator.new
     schema.input(params["string"])
-    schema.output.to_json
+    s = schema.output.to_json
+
   end
 
 end
