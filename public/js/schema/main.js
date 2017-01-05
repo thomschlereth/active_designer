@@ -20,10 +20,9 @@ $(document).ready(function() {
   }
 
   function createStartTables(schema) {
-    let tableNames = Object.keys(schema.tables)
-    for(let i = 0;i < tableNames.length;i++) {
-      let tableName = tableNames[i]
-      let table = schema.tables[tableName]
+    for(let i = 0;i < schema.length;i++) {
+      let tableName = schema[i].table_name
+      let table = schema[i]
       addTable(tableName)
       updateTableCoordinates()
       createStartColumns(table,tableName)
@@ -43,13 +42,11 @@ $(document).ready(function() {
   }
 
   function createStartColumns(table,tableName) {
-
     let columns = Object.keys(table.columns)
 
-    let tableHTML = $('.table-title').filter(function() {
-      return $(this).text() === tableName
+    let card = $('.card').filter(function() {
+      return $(this).find('.table-title').text() === tableName
     })
-    let card = tableHTML.parents('.card')
 
     for(let i = 0;i < columns.length;i++) {
       let columnName = columns[i]
