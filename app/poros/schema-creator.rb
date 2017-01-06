@@ -22,7 +22,8 @@ class SchemaCreator
         table_name = format_name(line)
         tables << { table_name: table_name,
                     columns: {},
-                    references: []
+                    references: [],
+                    status: "original"
                   }
       elsif line.include?("t.")
         type = format_type(line)
