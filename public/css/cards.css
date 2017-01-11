@@ -86,3 +86,7 @@
   position: absolute;
   overflow-x: scroll; !important;
 }
+
+.schema {
+  opacity: .0;
+}

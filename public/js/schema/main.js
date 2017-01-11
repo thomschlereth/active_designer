@@ -1,18 +1,9 @@
 $(document).ready(function() {
-  j = jsPlumb.getInstance({
-    Container:"foo"
-  });
 
   function createSchemaFromParams() {
-    if (location.href.includes("?schema=")) {
-      let encodedParams = location.href.split('?')[1]
-      let decodedParams = decodeURIComponent(encodedParams)
-      if (decodedParams[decodedParams.length -1] === "#") {
-        decodedParams = decodedParams.substr(0,decodedParams.length -1)
-      }
-      schema = JSON.parse(decodedParams.split('=')[1])
-      createStartTablesFromSchema(schema)
-    }
+    setCardDraggable($('.card'))
+    schema = JSON.parse($('schema').text())
+    addListeners()
   }
 
   function addTableByClick(tableName) {
@@ -27,9 +18,10 @@ $(document).ready(function() {
       var y = event.clientY - offset.top;
       $('.jsPlumbBoundary').append(tableHTML(tableName,x,y))
       let card = $('.card')[$('.card').length-1]
-      setCardDraggable(j,card)
+      setCardDraggable(card)
       addListeners()
       $('.canvasBorder').unbind('click')
+      addEmptyTableToSchema()
     })
   }
 
@@ -37,17 +29,21 @@ $(document).ready(function() {
     if (openEditChecker()) { return }
     setCursorBeforeBoundaryClick()
     addTableByClick("table_name")
-    addEmptyTableToSchema()
   })
 
   function addEmptyTableToSchema() {
-    schema.push({
-      table_name: "table_name",
+    tableID = `tbl-${newTableID}`;
+    schema[tableID] = {
+      name: "table_name",
+      original_name: null,
       columns: {},
       references: [],
-      status: "new"
-    })
+      status: "new",
+      id: tableID
+    };
+    newTableID += 1;
   }
 
   createSchemaFromParams()
+
 });

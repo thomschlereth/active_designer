@@ -10,7 +10,6 @@ function setupTableNameForm(event) {
   $(this).popover('hide');
   this.outerHTML = "<form><input class='table-form' type='text' name='tableName' value='" + this.innerText + "'></form>";
   addEditTableNameListeners(originalTitle)
-  // addEditTableNameListeners(originalTitle)
 }
 
 function titleKeypressListener(e) {
@@ -30,7 +29,6 @@ function titleKeypressListener(e) {
         }
       }
     }
-
     editTableName()
     return false;
   }

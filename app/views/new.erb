@@ -8,13 +8,11 @@
   <script src="js/jquery-3.1.1.js"></script>
   <script src="js/bootstrap-4.0.0-alpha.5-dist/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
 
-
   <script src="js/jsPlumb-2.2.8.js"></script>
   <script src="js/schema/jsPlumb.js"></script>
   <script src="js/schema/edit-checker.js"></script>
   <script src="js/schema/edit-table-name.js"></script>
   <script src="js/schema/listeners.js"></script>
-  <script src="js/schema/schema-from-params.js"></script>
   <script src="js/schema/mouse-controls.js"></script>
   <script src="js/schema/add-column.js"></script>
   <script src="js/schema/table-html.js"></script>
@@ -75,12 +73,47 @@
 
   <div id="bar" class="canvasBorder" >
     <div id="foo" class="jsPlumbBoundary" >
-      <div class='container-fluid'>
-
-      </div>
-
+      <% table_x = 10 %>
+      <% table_y = 10 %>
+      <% @tables.each do |table| %>
+        <div class='card' style="top:<%="#{table_y}"%>px;left:<%="#{table_x}"%>px;">
+          <div class='card-header'>
+            <i class="fa fa-link" aria-hidden="true"></i>
+            <h4 class='card-title table-title' data-toggle='popover' data-trigger='hover' data-content='Edit table name'>
+              <%= table[1][:name] %>
+            </h4>
+            <div class='trashcan'>
+              <i class='fa fa-trash' data-toggle='popover' data-trigger='hover' data-content='Destroy table'></i>
+            </div>
+            <i class="fa fa-magic" aria-hidden="true"></i>
+          </div>
+          <div class='card-block'>
+            <ul class='list-group'>
+              <% table[1][:columns].each do |column_id,column| %>
+              <li class='list-group-item'>
+                <div class='twe'>
+                  <span class='tag tag-default tag-pill float-xs-left' data-toggle='popover' data-trigger='hover' data-content='Edit type'><%= column[:type] %></span>
+                  <span class='column-title' data-toggle='popover' data-trigger='hover' data-content='Edit column name'><%= column[:name] %></span>
+                <div>
+              </li>
+              <% end %>
+            </ul>
+          </div>
+          <div class='card-footer'>
+            <i class="fa fa-arrows" aria-hidden="true"></i>
+            <i class='fa fa-plus-square' data-toggle='popover' data-trigger='hover' data-content='Add column'></i>
+          </div>
+        </div>
+        <% if table_x >= 650 %>
+          <% table_x = 10 %>
+          <% table_y = table_y + 300 %>
+        <% else %>
+          <% table_x = table_x + 275 %>
+        <% end %>
+      <% end %>
     </div>
   </div>
+  <schema><%= @tables.to_json %></schema>
 
 </body>
 

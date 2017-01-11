@@ -15,25 +15,41 @@ class SchemaCreator
   end
 
   def create_tables(schema)
-    tables = []
-    table_name = ""
+    tables = {}
+    table_index = 100
+    column_index = 100
+    table_id = nil
     schema.each do |line|
       if line.include?("create_table")
         table_name = format_name(line)
-        tables << { table_name: table_name,
-                    columns: {},
-                    references: [],
-                    status: "original"
-                  }
+        table_id = "tbl-" + table_index.to_s
+        tables[table_id] = {
+          name: table_name,
+          original_name: table_name,
+          status: "original",
+          columns: {},
+          references: [],
+          id: table_id
+        }
+        table_index += 1
       elsif line.include?("t.")
-        type = format_type(line)
-        name = format_name(line)
-        tables.last[:columns][name] = type
+        column_type = format_type(line)
+        column_name = format_name(line)
+        column_id = "col-#{table_index.to_s}-#{column_index.to_s}"
+        tables[table_id][:columns][column_id] = {
+          name: column_name,
+          original_name: column_name,
+          type: column_type,
+          original_type: column_type,
+          id: column_id,
+          status: { original: [] }
+        }
+        column_index += 1
       elsif line.include?("add_foreign_key")
         parts = line.split(" ")
         table_name = parts[1].delete("\",")
-        table = tables.find { |table| table[:table_name] == table_name }
-        table[:references] << parts[2].delete("\"")
+        table = tables.find { |table| table[1][:name] == table_name }
+        table[1][:references] << parts[2].delete("\"")
       end
     end
     tables
