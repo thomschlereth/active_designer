@@ -7,22 +7,27 @@ $(document).ready(function() {
   }
 
   function addTableByClick(tableName) {
-    zoom = 1
-    window.setZoom(zoom,null,null,$('#foo')[0])
-    $('.slider').css({left: 5})
+    zoom = 1;
+    window.setZoom(zoom,null,null,$('#foo')[0]);
+    $('.slider').css({left: 5});
     $('.canvasBorder').click(function(event) {
-      setCursorAfterBoundaryClick()
-      let target = $(event.target)
-      let offset = target.position()
-      var x = event.clientX - offset.left;
-      var y = event.clientY - offset.top;
-      $('.jsPlumbBoundary').append(tableHTML(tableName,x,y))
-      let card = $('.card')[$('.card').length-1]
-      setCardDraggable(card)
-      addListeners()
-      $('.canvasBorder').unbind('click')
-      addEmptyTableToSchema()
-    })
+      $('.canvasBorder').unbind('click');
+      let coords = findTargetCoord();
+      let card = $(`#tbl-${newTableID}`);
+      $('.jsPlumbBoundary').append(tableHTML(tableName,coords.x,coords.y));
+      setCursorAfterBoundaryClick();
+      setCardDraggable(card);
+      addListeners();
+      addEmptyTableToSchema();
+      newTableID += 1;
+    });
+  }
+
+  function findTargetCoord() {
+    let target = $(event.target)
+    let offset = target.position()
+    return { x: event.clientX - offset.left,
+             y: event.clientY - offset.top}
   }
 
   $('.fa-plus-square-o').click(function(){
@@ -41,7 +46,6 @@ $(document).ready(function() {
       status: "new",
       id: tableID
     };
-    newTableID += 1;
   }
 
   createSchemaFromParams()
