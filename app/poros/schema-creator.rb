@@ -2,16 +2,9 @@ class SchemaCreator
 
   attr_reader :output
 
-  def input(string)
-    schema = string.split("\n")
-    schema = delete_comments(schema)
-    @references = []
-    tables = create_tables(schema)
-    references = create_references
-    @output = {
-      "references" => references,
-      "tables" => tables
-    }
+  def format(string)
+    schema = delete_comments(string.split("\n"))
+    create_tables(schema)
   end
 
   def delete_comments(schema)
@@ -22,35 +15,44 @@ class SchemaCreator
   end
 
   def create_tables(schema)
-    # tables = []
     tables = {}
-    table_name = ""
+    table_index = 100
+    column_index = 100
+    table_id = nil
     schema.each do |line|
       if line.include?("create_table")
         table_name = format_name(line)
-        tables[table_name] = { "columns" => {} }
+        table_id = "tbl-" + table_index.to_s
+        tables[table_id] = {
+          name: table_name,
+          original_name: table_name,
+          status: "original",
+          columns: {},
+          references: [],
+          id: table_id
+        }
+        table_index += 1
       elsif line.include?("t.")
-        type = format_type(line)
-        name = format_name(line)
-        tables[table_name]["columns"][name] = type
+        column_type = format_type(line)
+        column_name = format_name(line)
+        column_id = "col-#{table_index.to_s}-#{column_index.to_s}"
+        tables[table_id][:columns][column_id] = {
+          name: column_name,
+          original_name: column_name,
+          type: column_type,
+          original_type: column_type,
+          id: column_id,
+          status: { original: [] }
+        }
+        column_index += 1
       elsif line.include?("add_foreign_key")
-        @references << parts = line.split(" ")
+        parts = line.split(" ")
+        table_name = parts[1].delete("\",")
+        table = tables.find { |table| table[1][:name] == table_name }
+        table[1][:references] << parts[2].delete("\"")
       end
     end
     tables
-  end
-
-  def create_references
-    references = []
-    @references.map do |reference|
-      table = reference[1].delete(",")
-      foreign_key = reference[2]
-      references << {
-        "table" => table,
-        "foreign_key" => foreign_key
-      }
-    end
-    references
   end
 
   def format_name(line)

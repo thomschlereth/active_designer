@@ -9,23 +9,14 @@ class Server < Sinatra::Base
     erb :home
   end
 
-  get '/new' do
-    if params["schema"]
-      @schema = JSON.parse(params["schema"], :symbolize_names => true)
-    end
+  post '/new' do
+    schema = SchemaCreator.new
+    @tables = schema.format(params["schema"])
     erb :new
   end
 
   get '/load' do
     erb :load
-  end
-
-  post '/schema.json' do
-    content_type :json
-    schema = SchemaCreator.new
-    schema.input(params["string"])
-    s = schema.output.to_json
-
   end
 
 end

@@ -1,9 +1,13 @@
 let zoom = .7;
-let j = null;
+
+let j = jsPlumb.getInstance({
+  Container:"foo"
+});
 
 jsPlumb.ready(function() {
   let canvasLeft = 0
   let canvasTop = 0
+
 
   window.setZoom = function(zoom, instance, transformOrigin, el) {
     transformOrigin = transformOrigin || [ 0.5, 0.5 ];
@@ -47,6 +51,6 @@ jsPlumb.ready(function() {
 
 });
 
-function setCardDraggable(j,card) {
-  j.draggable(card, {filter:':not(.fa-arrows)'});
+function setCardDraggable(card) {
+  jsPlumb.draggable(card, {filter:':not(.fa-arrows)'});
 }
