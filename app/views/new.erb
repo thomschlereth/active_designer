@@ -75,12 +75,12 @@
     <div id="foo" class="jsPlumbBoundary" >
       <% table_x = 10 %>
       <% table_y = 10 %>
-      <% @tables.each do |table| %>
-        <div class='card' style="top:<%="#{table_y}"%>px;left:<%="#{table_x}"%>px;">
+      <% @tables.each do |table_id,table| %>
+        <div class='card' id='<%= table_id %>' style="top:<%="#{table_y}"%>px;left:<%="#{table_x}"%>px;">
           <div class='card-header'>
             <i class="fa fa-link" aria-hidden="true"></i>
             <h4 class='card-title table-title' data-toggle='popover' data-trigger='hover' data-content='Edit table name'>
-              <%= table[1][:name] %>
+              <%= table[:name] %>
             </h4>
             <div class='trashcan'>
               <i class='fa fa-trash' data-toggle='popover' data-trigger='hover' data-content='Destroy table'></i>
@@ -89,8 +89,8 @@
           </div>
           <div class='card-block'>
             <ul class='list-group'>
-              <% table[1][:columns].each do |column_id,column| %>
-              <li class='list-group-item'>
+              <% table[:columns].each do |column_id,column| %>
+              <li class='list-group-item' id='<%= column_id %>'>
                 <div class='twe'>
                   <span class='tag tag-default tag-pill float-xs-left' data-toggle='popover' data-trigger='hover' data-content='Edit type'><%= column[:type] %></span>
                   <span class='column-title' data-toggle='popover' data-trigger='hover' data-content='Edit column name'><%= column[:name] %></span>

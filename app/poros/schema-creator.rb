@@ -21,6 +21,8 @@ class SchemaCreator
     table_id = nil
     schema.each do |line|
       if line.include?("create_table")
+        table_index += 1
+        column_index = 100
         table_name = format_name(line)
         table_id = "tbl-" + table_index.to_s
         tables[table_id] = {
@@ -31,8 +33,8 @@ class SchemaCreator
           references: [],
           id: table_id
         }
-        table_index += 1
       elsif line.include?("t.")
+        column_index += 1
         column_type = format_type(line)
         column_name = format_name(line)
         column_id = "col-#{table_index.to_s}-#{column_index.to_s}"
@@ -42,9 +44,8 @@ class SchemaCreator
           type: column_type,
           original_type: column_type,
           id: column_id,
-          status: { original: [] }
+          status: { original: true, new: false, modified: false }
         }
-        column_index += 1
       elsif line.include?("add_foreign_key")
         parts = line.split(" ")
         table_name = parts[1].delete("\",")

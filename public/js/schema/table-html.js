@@ -1,6 +1,6 @@
 function tableHTML(tableName,tableX,tableY) {
   return "" +
-  `<div class='card' style='top:${tableY}px;left:${tableX}px;'>` +
+  `<div class='card' id='tbl-${newTableID}' style='top:${tableY}px;left:${tableX}px;'>` +
     "<div class='card-header'>" +
       '<i class="fa fa-link" aria-hidden="true"></i>' +
       "<h4 class='card-title table-title' data-toggle='popover' data-trigger='hover' data-content='Edit table name'>" +
