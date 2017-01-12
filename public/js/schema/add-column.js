@@ -72,20 +72,14 @@ function editTypeName(columnType){
   });
 }
 
-function columnHTML(card, columnName, columnType) {
-  let listGroup = card.find('.list-group')
-  listGroup.append(
-    "<li class='list-group-item'>" +
+function columnHTML(columnObj) {
+  return "" +
+    `<li class='list-group-item' id='${columnObj.id}'>` +
     "<div class='twe'>" +
-      columnTypeHTML(columnType) +
-      `<span class='column-title' data-toggle='popover' data-trigger='hover' data-content='Edit column name'>${columnName}</span>` +
+      columnTypeHTML(columnObj.type) +
+      `<span class='column-title' data-toggle='popover' data-trigger='hover' data-content='Edit column name'>${columnObj.name}</span>` +
     "<div>" +
     "</li>"
-  );
-  $('[data-toggle="popover"]').popover()
-  editColumnName()
-  editTypeName(columnType)
-  return listGroup[0].children[listGroup[0].children.length -1]
 }
 
 function columnTypeHTML(columnType) {

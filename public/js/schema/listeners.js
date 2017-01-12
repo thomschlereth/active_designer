@@ -8,12 +8,35 @@ function destroyTable(){
   });
 }
 
+function newColumnObj(tableID) {
+  let tableNum = tableID.split('-')[1];
+  let prevID = 100;
+  let columnIDs = Object.keys(schema[`tbl-${tableNum}`].columns);
+  if (columnIDs.length !== 0) {
+    prevID = parseInt(columnIDs[columnIDs.length -1].split('-')[2]);
+  }
+  let columnID = `col-${tableNum}-${prevID + 1}`;
+  return schema[tableID].columns[columnID] = {
+    name: "column",
+    original_name: null,
+    type: "type",
+    original_type: null,
+    id: columnID,
+    status: { original: false, modified: false, new: true }
+  }
+}
+
 function addColumn() {
-  if (openEditChecker()) { return }
-  $('.fa-plus-square').unbind('click')
+  if (openEditChecker()) { return };
+  $('.fa-plus-square').unbind('click');
   $('.fa-plus-square').click(function() {
-    let card = $(this).parents('.card')
-    columnHTML(card, "column", "type")
+    let card = $(this).parents('.card');
+    let listGroup = card.find('.list-group');
+    let columnObj = newColumnObj(card[0].id)
+    listGroup.append(columnHTML(columnObj));
+    $('[data-toggle="popover"]').popover();
+    editColumnName();
+    editTypeName("type");
   });
 }
 

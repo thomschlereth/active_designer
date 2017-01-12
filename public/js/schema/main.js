@@ -3,6 +3,7 @@ $(document).ready(function() {
   function createSchemaFromParams() {
     setCardDraggable($('.card'))
     schema = JSON.parse($('schema').text())
+    $('schema')[0].outerHTML = ""
     addListeners()
   }
 
