@@ -2,6 +2,8 @@
   position: absolute;
   width: 200px;
   z-index: 4;
+  background-color: #FFF0D7;
+  color: #4B5B75;
 }
 
 .card-block {
@@ -12,17 +14,11 @@
   float: left;
   margin: 0px;
   font-size: 18px;
+  font-weight: bold;
 }
 
-.trashcan {
+.table-nav-buttons {
   float: right;
-}
-
-.card-footer {
-  padding-top: 3px;
-  padding-bottom: 3px;
-  padding-left: 10px;
-  padding-right: 10px;
 }
 
 .card-header {
@@ -30,6 +26,7 @@
   padding-bottom: 3px;
   padding-left: 10px;
   padding-right: 10px;
+  background-color: #D4BF99;
 }
 
 .table-form {
@@ -40,17 +37,13 @@
   width: 70%;
 }
 
-.column-title {
-  margin-left: 5px;
-  float: center;
-}
-
-.hidden-anchor {
-  opacity: .0;
-}
-
 .tag-danger {
   background-color: darkred;
+}
+
+.tag-default {
+  background-color: #4B5B75;
+  color: #FFF0D7;
 }
 
 .fa-link {
@@ -62,6 +55,9 @@
 .fa-arrows {
   float: left;
   margin-top: 2px;
+  margin-right: 2px;
+  color: #765A29;
+
 }
 
 .fa-trash {
@@ -69,24 +65,26 @@
 }
 
 .fa-plus-square {
-  float: right;
+  color: #765A29;
   margin-top: 2px;
   margin-right: 0px;
 }
 
 .list-group-item {
-  padding: 2px;
   height: 26px;
+  padding: 3px;
   max-width: 250px;
   overflow-x: scroll !important;
+  background-color: #FFF0D7;
+  border: 1px solid #765A29;
 }
 
-.twe {
+.type-span {
+  max-width: 60px;
   float: left;
-  position: absolute;
-  overflow-x: scroll; !important;
 }
 
-.schema {
-  opacity: .0;
+.column-title-outer {
+  position: absolute;
+  margin-left: 62px;
 }

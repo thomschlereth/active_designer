@@ -75,10 +75,8 @@ function editTypeName(columnType){
 function columnHTML(columnObj) {
   return "" +
     `<li class='list-group-item' id='${columnObj.id}'>` +
-    "<div class='twe'>" +
       columnTypeHTML(columnObj.type) +
       `<span class='column-title' data-toggle='popover' data-trigger='hover' data-content='Edit column name'>${columnObj.name}</span>` +
-    "<div>" +
     "</li>"
 }
 

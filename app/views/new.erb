@@ -78,30 +78,42 @@
       <% @tables.each do |table_id,table| %>
         <div class='card' id='<%= table_id %>' style="top:<%="#{table_y}"%>px;left:<%="#{table_x}"%>px;">
           <div class='card-header'>
-            <i class="fa fa-link" aria-hidden="true"></i>
+            <i class="fa fa-arrows" aria-hidden="true"></i>
             <h4 class='card-title table-title' data-toggle='popover' data-trigger='hover' data-content='Edit table name'>
               <%= table[:name] %>
             </h4>
-            <div class='trashcan'>
+            <div class='table-nav-buttons'>
+              <i class='fa fa-plus-square' data-toggle='popover' data-trigger='hover' data-content='Add column'></i>
               <i class='fa fa-trash' data-toggle='popover' data-trigger='hover' data-content='Destroy table'></i>
             </div>
-            <i class="fa fa-magic" aria-hidden="true"></i>
           </div>
           <div class='card-block'>
             <ul class='list-group'>
+              <li class='list-group-item' id="<%= table_id %>-id-column">
+                <span class='tag tag-default tag-pill float-xs-left span-type'>integer</span>
+                <div class='column-title-outer' >
+                  <span class='column-title' >id</span>
+                </div>
+
+              </li>
               <% table[:columns].each do |column_id,column| %>
               <li class='list-group-item' id='<%= column_id %>'>
-                <div class='twe'>
-                  <span class='tag tag-default tag-pill float-xs-left' data-toggle='popover' data-trigger='hover' data-content='Edit type'><%= column[:type] %></span>
+                <span class='tag tag-default float-xs-left type-span' data-toggle='popover' data-trigger='hover' data-content='Edit type'><%= column[:type] %></span>
+                <div class='column-title-outer' >
                   <span class='column-title' data-toggle='popover' data-trigger='hover' data-content='Edit column name'><%= column[:name] %></span>
-                <div>
+                </div>
+              </li>
+              <% end %>
+              <% table[:references].each do |reference_id,reference| %>
+              <li class='list-group-item' id='<%= reference_id %>'>
+                <span class='tag tag-default tag-pill float-xs-left type-span'>ref</span>
+                <div class='column-title-outer' >
+                  <span class='column-title'><%= "#{reference[:foreign_table_name]}_id" %></span>
+                </div>
+
               </li>
               <% end %>
             </ul>
-          </div>
-          <div class='card-footer'>
-            <i class="fa fa-arrows" aria-hidden="true"></i>
-            <i class='fa fa-plus-square' data-toggle='popover' data-trigger='hover' data-content='Add column'></i>
           </div>
         </div>
         <% if table_x >= 650 %>
