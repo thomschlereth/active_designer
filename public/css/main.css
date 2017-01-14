@@ -89,14 +89,13 @@ p {
 
 .canvasBorder {
   background: linear-gradient(#373A3C,#2B2E30);
-  border: 3px solid #CCC;
+  border: 3px solid #D4BF99;
   height: 88vh;
   width: 98%;
   margin-top: .5%;
   margin-left: auto;
   margin-right: auto;
   overflow: scroll;
-  /*direction: rtl;*/
   border-radius: 7px;
 }
 
@@ -109,12 +108,8 @@ p {
 }
 
 .jtk-connector {
-  z-index:5;
-  opacity: .6;
-}
-
-.jtk-endpoint {
-  z-index:5;
+  z-index:1;
+  opacity: .7;
 }
 
 .switch {
@@ -138,7 +133,7 @@ p {
   left: 0;
   right: 0;
   background-color: #4B5B75;
-  border: 1px solid #ccc;
+  border: 1px solid #D4BF99;
   z-index: 0;
   border-radius: 4px;
 }
@@ -151,11 +146,11 @@ p {
   left: 65px;
   top:38.5%;
   background-color: #4B5B75;
-  border: 1px solid #ccc;
+  border: 1px solid #D4BF99;
 }
 
 .zoom-button {
-  color: #ccc;
+  color: #D4BF99;
   position: absolute;
   top:20%;
   opacity: 1;
@@ -178,4 +173,5 @@ p {
   z-index: 1;
   left: 25%;
   top: 2.5%;
+  color: #303335;
 }

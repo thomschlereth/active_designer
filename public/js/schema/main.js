@@ -4,7 +4,25 @@ $(document).ready(function() {
     setCardDraggable($('.card'))
     schema = JSON.parse($('schema').text())
     $('schema')[0].outerHTML = ""
+    window.setZoom(zoom,null,null,$('#foo')[0])
+    console.log(zoom)
+    addReferences()
     addListeners()
+  }
+
+  function addReferences() {
+    let refs = $("li[id^='ref-']")
+    for(let i = 0; i < refs.length; i++) {
+      let referenceID = refs[i].id
+      let tableIDNum = referenceID.split('-')[1]
+      let tableID = `tbl-${tableIDNum}`
+      let tableObj = schema[tableID]
+      let refObj = tableObj.references[referenceID]
+      let foreignTableID = refObj.foreign_table_id
+      let foreignTableIDEl = $(`#${foreignTableID}-id-column`)[0]
+      let refEl = refs[i]
+      createConnector(refEl,foreignTableIDEl)
+    }
   }
 
   function addTableByClick(tableName) {
@@ -14,10 +32,9 @@ $(document).ready(function() {
     $('.canvasBorder').click(function(event) {
       $('.canvasBorder').unbind('click');
       let coords = findTargetCoord();
-      let card = $(`#tbl-${newTableID}`);
       $('.jsPlumbBoundary').append(tableHTML(tableName,coords.x,coords.y));
       setCursorAfterBoundaryClick();
-      setCardDraggable(card);
+      setCardDraggable($(`#tbl-${newTableID}`));
       addListeners();
       addEmptyTableToSchema();
       newTableID += 1;

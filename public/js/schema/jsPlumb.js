@@ -28,7 +28,7 @@ jsPlumb.ready(function() {
     instance.setZoom(zoom);
   };
 
-  window.setZoom(zoom,null,null,$('#foo')[0])
+  // window.setZoom(zoom,null,null,$('#foo')[0])
 
   $('#zoom-in').click(function() {
     if (zoom > .4) {
@@ -53,4 +53,16 @@ jsPlumb.ready(function() {
 
 function setCardDraggable(card) {
   jsPlumb.draggable(card, {filter:':not(.fa-arrows)'});
+}
+
+function createConnector(source,target) {
+  jsPlumb.connect({
+    source:source,
+    target:target,
+    anchors:[["Continuous", { faces: ["left", "right"] }],["Continuous", { faces: ["left", "right"] }]],
+    endpoint:["Dot", { radius: 2}],
+    paintStyle: { strokeWidth:5, stroke:'#765A29' },
+    detachable: false,
+    maxConnections:-1
+  });
 }
