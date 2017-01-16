@@ -1,10 +1,60 @@
 
 function destroyTable(){
   if (openEditChecker()) { return }
-  $('.fa-trash').unbind('click')
-  $('.fa-trash').click(function() {
+  $('.delete-table').unbind('click')
+  $('.delete-table').click(function() {
     $(this).popover('dispose');
     $(this).parents('.card')[0].outerHTML = ""
+  });
+}
+
+function destroyColumn() {
+  if (openEditChecker()) { return }
+  $('.delete-column').unbind('click')
+  $('.delete-column').click(function() {
+    $(this).popover('dispose');
+    let column = $(this).parents('.list-group-item')[0];
+    let columnID = column.id;
+    column.outerHTML = "";
+    let tableID = `tbl-${columnID.split('-')[1]}`;
+    let conns = connections[tableID];
+    for(let i = 0; i < conns.length; i++) {
+      jsPlumb.repaintEverything()
+      jsPlumb.repaint(conns[i].source)
+    }
+    let columns = schema[tableID].columns
+    let status = columns[columnID].status;
+    if (status.new) {
+      columns[columnID] = undefined;
+    } else {
+      status.deleted = true
+    }
+  });
+}
+
+function destroyReference() {
+  if (openEditChecker()) { return }
+  $('.delete-ref').unbind('click')
+  $('.delete-ref').click(function() {
+    $(this).popover('dispose');
+    let reference = $(this).parents('.list-group-item')[0];
+    let referenceID = reference.id;
+    let tableID = `tbl-${referenceID.split('-')[1]}`;
+    jsPlumb.remove(reference);
+    let conns = connections[tableID];
+    for(let i = 0; i < conns.length; i++) {
+      if (conns[i].source) {
+        jsPlumb.repaintEverything()
+        jsPlumb.repaint(conns[i].source)
+      }
+    }
+    let references = schema[tableID].references
+    let status = references[referenceID].status;
+    if (status.new) {
+      references[referenceID] = undefined;
+    } else {
+      status.deleted = true
+    }
   });
 }
 
@@ -62,6 +112,10 @@ function displayColumnJumbo() {
     }
   });
 
+  $('.add-column-card .fa-times').click(function() {
+    $('.add-column-card')[0].outerHTML = ""
+  });
+
   $('form button').click(function() {
     let referenceChecked = $('form input#column-reference')[0].checked
     if (referenceChecked) {
@@ -84,7 +138,7 @@ function displayColumnJumbo() {
             let foreignKeyHTML = foreignTableHTML.find(`#${foreignTableHTML[0].id}-id-column`);
             let listGroup = card.find('.list-group');
             let refObj = newRefObj(card[0].id, foreignTableName, foreignTableHTML[0].id);
-            listGroup.append(columnHTML({id: refObj.id, type: "integer", name: `${foreignTableName}_id`}));
+            listGroup.append(columnHTML({id: refObj.id, type: "integer", name: `${foreignTableName}_id`},"delete-ref"));
             let newColumnHTML = $(`#${refObj.id}`)[0]
             createConnector(newColumnHTML,foreignKeyHTML);
           }
@@ -98,9 +152,11 @@ function displayColumnJumbo() {
       let columnType = $('form select#column-type-select').val()
       let listGroup = card.find('.list-group');
       let columnObj = newColumnObj(card[0].id, columnName, columnType)
-      listGroup.append(columnHTML(columnObj));
+      listGroup.append(columnHTML(columnObj, "delete-column"));
     }
     $('.add-column-card')[0].outerHTML = ""
+    destroyColumn()
+    destroyReference()
     return false
   })
 
@@ -111,12 +167,13 @@ function addColumnCardHTML() {
   return "<div class='card add-column-card'>" +
     "<div class='card-header'>" +
       "<h4 class='card-title'>Enter Column Information</h4>" +
+      "<i class='fa fa-times' aria-hidden='true'></i>" +
     "</div>" +
     "<div class='card-block'>" +
     "<form>" +
-      "<div class='form-check'>" +
-        "<label class='form-check-label'>" +
-          "<input class='form-check-input' type='checkbox' id='column-reference' value='reference' > reference" +
+      "<div class='ref-check'>" +
+        "<label class='ref-check-label'>" +
+          "<input class='ref-check-input' type='checkbox' id='column-reference' value='reference' > reference" +
         "</label>" +
       "</div>" +
       datatypeSelectoHTML() +
@@ -128,6 +185,7 @@ function addColumnCardHTML() {
   "</div>" +
   "</div>"
 }
+
 
 function foreignTableRadioButtonHTML() {
   return "<div class='reference-html hidden'>" +
@@ -188,5 +246,7 @@ function addListeners(){
   destroyTable()
   editTableName()
   addColumn()
+  destroyColumn()
+  destroyReference()
   $('[data-toggle="popover"]').popover()
 }

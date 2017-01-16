@@ -1,26 +1,26 @@
 $(document).ready(function() {
 
   function createSchemaFromParams() {
-    setCardDraggable($('.card'))
-    schema = JSON.parse($('schema').text())
-    $('schema')[0].outerHTML = ""
-    window.setZoom(zoom,null,null,$('#foo')[0])
-    addReferences()
-    addListeners()
+    setCardDraggable($('.card'));
+    schema = JSON.parse($('schema').text());
+    $('schema')[0].outerHTML = "";
+    window.setZoom(zoom,null,null,$('#foo')[0]);
+    addReferences();
+    addListeners();
   }
 
   function addReferences() {
-    let refs = $("li[id^='ref-']")
+    let refs = $("li[id^='ref-']");
     for(let i = 0; i < refs.length; i++) {
-      let referenceID = refs[i].id
-      let tableIDNum = referenceID.split('-')[1]
-      let tableID = `tbl-${tableIDNum}`
-      let tableObj = schema[tableID]
-      let refObj = tableObj.references[referenceID]
-      let foreignTableID = refObj.foreign_table_id
-      let foreignTableIDEl = $(`#${foreignTableID}-id-column`)[0]
-      let refEl = refs[i]
-      createConnector(refEl,foreignTableIDEl)
+      let referenceID = refs[i].id;
+      let tableIDNum = referenceID.split('-')[1];
+      let tableID = `tbl-${tableIDNum}`;
+      let tableObj = schema[tableID];
+      let refObj = tableObj.references[referenceID];
+      let foreignTableID = refObj.foreign_table_id;
+      let foreignTableIDEl = $(`#${foreignTableID}-id-column`)[0];
+      let refEl = refs[i];
+      createConnector(refEl,foreignTableIDEl,tableID);
     }
   }
 

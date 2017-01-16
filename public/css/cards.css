@@ -55,7 +55,7 @@
 }
 
 .fa-trash {
-  color: #D9D9DA;
+  color: darkred;
   margin: 0px;
 }
 
@@ -65,13 +65,22 @@
   margin-right: 0px;
 }
 
+.list-group {
+  border: none;
+  border-radius: 4px;
+  border-left: 2px solid #4B5B75;
+  border-right: 2px solid #4B5B75;
+  border-top: 2px solid #4B5B75;
+}
+
 .list-group-item {
   height: 26px;
   padding: 3px;
   max-width: 250px;
-  overflow-x: scroll !important;
+  overflow: hidden !important;
   background-color: #D9D9DA;
-  border: 1px solid #4B5B75;
+  border: none;
+  border-bottom: 2px solid #4B5B75;
 }
 
 .type-span {
@@ -82,5 +91,17 @@
 
 .column-title-outer {
   position: absolute;
+  width: 54%;
+  overflow: scroll;
   margin-left: 62px;
+}
+
+.delete-column {
+  color: darkred;
+  float: right;
+}
+
+.delete-ref {
+  color: darkred;
+  float: right;
 }

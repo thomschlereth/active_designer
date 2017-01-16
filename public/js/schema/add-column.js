@@ -71,9 +71,12 @@ function editTypeName(columnType){
   });
 }
 
-function columnHTML(columnObj) {
+function columnHTML(columnObj,deleteClass) {
   return `<li class='list-group-item' id='${columnObj.id}'>` +
-    `<span class='tag tag-default float-xs-left' >${columnObj.type}</span>` +
-    `<span class='column-title'>${columnObj.name}</span>` +
+    `<span class='tag tag-default float-xs-left type-span' >${columnObj.type}</span>` +
+    "<div class='column-title-outer' >" +
+      `<span class='column-title'>${columnObj.name}</span>` +
+    "</div>" +
+    `<i class='fa fa-trash ${deleteClass}' data-toggle='popover' data-trigger='hover' data-content='Destroy column'></i>` +
   "</li>"
 }

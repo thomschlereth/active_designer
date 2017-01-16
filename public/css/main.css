@@ -192,3 +192,8 @@ p {
 .hidden {
   display: none;
 }
+
+.fa-times {
+  color: #D9D9DA;
+  float: right;
+}
