@@ -175,3 +175,20 @@ p {
   top: 2.5%;
   color: #303335;
 }
+
+.add-column-card {
+  position: absolute;
+  z-index: 5;
+  top: 30%;
+  left: 35%;
+  width: 30% !important;
+  box-shadow: 0px 0px 10px 2px black;
+}
+
+.form-check-input {
+  color: green;
+}
+
+.hidden {
+  display: none;
+}

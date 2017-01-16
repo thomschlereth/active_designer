@@ -62,7 +62,6 @@ function editTypeName(columnType){
       $('.dropdown-item').click(function() {
         let typeName = this.innerText;
         this.parentElement.parentElement.outerHTML =
-        // "<span class='tag active-type tag-default tag-pill float-xs-left' data-toggle='popover' data-trigger='hover' data-content='Edit type'>" + typeName + "</span>"
         "<span class='tag tag-default tag-pill float-xs-left' data-toggle='popover' data-trigger='hover' data-content='Edit type'>" + typeName + "</span>"
         $('[data-toggle="popover"]').popover()
         $('input')[0].outerHTML = ""
@@ -73,17 +72,8 @@ function editTypeName(columnType){
 }
 
 function columnHTML(columnObj) {
-  return "" +
-    `<li class='list-group-item' id='${columnObj.id}'>` +
-      columnTypeHTML(columnObj.type) +
-      `<span class='column-title' data-toggle='popover' data-trigger='hover' data-content='Edit column name'>${columnObj.name}</span>` +
-    "</li>"
-}
-
-function columnTypeHTML(columnType) {
-  if (columnType === "type") {
-    return `<span class='tag tag-danger tag-pill float-xs-left' data-toggle='popover' data-trigger='hover' data-content='Edit type'>${columnType}</span>`
-  } else {
-    return `<span class='tag tag-default tag-pill float-xs-left' data-toggle='popover' data-trigger='hover' data-content='Edit type'>${columnType}</span>`
-  }
+  return `<li class='list-group-item' id='${columnObj.id}'>` +
+    `<span class='tag tag-default float-xs-left' >${columnObj.type}</span>` +
+    `<span class='column-title'>${columnObj.name}</span>` +
+  "</li>"
 }
