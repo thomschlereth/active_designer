@@ -59,8 +59,8 @@ $(document).ready(function() {
       name: "table_name",
       original_name: null,
       columns: {},
-      references: [],
-      status: "new",
+      references: {},
+      status: { original: false, modified: false, new: true, deleted: false },
       id: tableID
     };
   }
