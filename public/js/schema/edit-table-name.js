@@ -1,6 +1,7 @@
+
 function editTableName(){
   $('body').unbind('click');
-  $('.table-title').on('click',null,null,setupTableNameForm);
+  $('.table-title').on('dblclick',null,null,setupTableNameForm);
 }
 
 function setupTableNameForm(event) {
@@ -14,12 +15,12 @@ function setupTableNameForm(event) {
 
 function addEditTableNameListeners(originalTitle, cardID) {
   $('.table-form').on('keypress', null, { originalTitle: originalTitle,
-      cardID: cardID
-    }, titleKeypressListener);
+    cardID: cardID
+  }, titleKeypressListener);
   $('body').on('click', null, { originalTitle: originalTitle,
-      cardID: cardID,
-      count: 0
-    }, titleBodyClickListener);
+    cardID: cardID,
+    count: 0
+  }, titleBodyClickListener);
 }
 
 function titleKeypressListener(e) {
