@@ -2,12 +2,12 @@
   position: absolute;
   width: 200px;
   z-index: 4;
-  background-color: #FFF0D7;
+  background-color: #D9D9DA;
   color: #4B5B75;
 }
 
 .card-block {
-  padding: 10px;
+  padding: 4px;
 }
 
 .card-title {
@@ -15,6 +15,7 @@
   margin: 0px;
   font-size: 18px;
   font-weight: bold;
+  color: #D9D9DA;
 }
 
 .table-nav-buttons {
@@ -26,7 +27,7 @@
   padding-bottom: 3px;
   padding-left: 10px;
   padding-right: 10px;
-  background-color: #D4BF99;
+  background-color: #4B5B75;
 }
 
 .table-form {
@@ -46,18 +47,11 @@
   color: #FFF0D7;
 }
 
-.fa-link {
-  float: left;
-  margin-right: 5px;
-  margin-top: 3px;
-}
-
 .fa-arrows {
   float: left;
   margin-top: 2px;
   margin-right: 2px;
-  color: #765A29;
-
+  color: #D9D9DA;
 }
 
 .fa-trash {
@@ -65,7 +59,7 @@
 }
 
 .fa-plus-square {
-  color: #765A29;
+  color: #D9D9DA;
   margin-top: 2px;
   margin-right: 0px;
 }
@@ -75,13 +69,14 @@
   padding: 3px;
   max-width: 250px;
   overflow-x: scroll !important;
-  background-color: #FFF0D7;
-  border: 1px solid #765A29;
+  background-color: #D9D9DA;
+  border: 1px solid #4B5B75;
 }
 
 .type-span {
   max-width: 60px;
   float: left;
+  color: #D9D9DA;
 }
 
 .column-title-outer {
