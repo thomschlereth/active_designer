@@ -84,7 +84,7 @@
             </h4>
             <div class='table-nav-buttons'>
               <i class='fa fa-plus-square' data-toggle='popover' data-trigger='hover' data-content='Add column'></i>
-              <i class='fa fa-trash' data-toggle='popover' data-trigger='hover' data-content='Destroy table'></i>
+              <i class='fa fa-trash delete-table' data-toggle='popover' data-trigger='hover' data-content='Destroy table'></i>
             </div>
           </div>
           <div class='card-block'>
@@ -101,6 +101,7 @@
                 <div class='column-title-outer' >
                   <span class='column-title' data-toggle='popover' data-trigger='hover' data-content='Edit column name'><%= column[:name] %></span>
                 </div>
+                <i class='fa fa-trash delete-column' data-toggle='popover' data-trigger='hover' data-content='Destroy column'></i>
               </li>
               <% end %>
               <% table[:references].each do |reference_id,reference| %>
@@ -109,6 +110,7 @@
                 <div class='column-title-outer' >
                   <span class='column-title'><%= "#{reference[:foreign_table_name]}_id" %></span>
                 </div>
+                <i class='fa fa-trash delete-ref' data-toggle='popover' data-trigger='hover' data-content='Destroy table'></i>
               </li>
               <% end %>
             </ul>

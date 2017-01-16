@@ -1,5 +1,7 @@
 let zoom = .7;
 
+let connections = {}
+
 let j = jsPlumb.getInstance({
   Container:"foo"
 });
@@ -50,8 +52,8 @@ function setCardDraggable(card) {
   jsPlumb.draggable(card, {filter:':not(.fa-arrows)'});
 }
 
-function createConnector(source,target) {
-  jsPlumb.connect({
+function createConnector(source,target,tableID) {
+  let conn = jsPlumb.connect({
     source:source,
     target:target,
     anchors:[["Continuous", { faces: ["left", "right"] }],["Continuous", { faces: ["left", "right"] }]],
@@ -60,4 +62,9 @@ function createConnector(source,target) {
     detachable: false,
     maxConnections:-1
   });
+  if (connections[tableID]) {
+    connections[tableID].push(conn)
+  } else {
+    connections[tableID] = [conn]
+  }
 }
