@@ -61,7 +61,6 @@ function createConnector(source,target) {
     target:target,
     anchors:[["Continuous", { faces: ["left", "right"] }],["Continuous", { faces: ["left", "right"] }]],
     endpoint:["Dot", { radius: 2}],
-    // paintStyle: { strokeWidth:5, stroke:'#765A29' },
     paintStyle: { strokeWidth:5, stroke:'#D9D9DA' },
     detachable: false,
     maxConnections:-1
