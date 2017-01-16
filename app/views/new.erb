@@ -90,11 +90,10 @@
           <div class='card-block'>
             <ul class='list-group'>
               <li class='list-group-item' id="<%= table_id %>-id-column">
-                <span class='tag tag-default tag-pill float-xs-left span-type'>integer</span>
+                <span class='tag tag-default float-xs-left type-span'>integer</span>
                 <div class='column-title-outer' >
                   <span class='column-title' >id</span>
                 </div>
-
               </li>
               <% table[:columns].each do |column_id,column| %>
               <li class='list-group-item' id='<%= column_id %>'>
@@ -106,7 +105,7 @@
               <% end %>
               <% table[:references].each do |reference_id,reference| %>
               <li class='list-group-item' id='<%= reference_id %>'>
-                <span class='tag tag-default tag-pill float-xs-left type-span'>ref</span>
+                <span class='tag tag-default float-xs-left type-span'>integer</span>
                 <div class='column-title-outer' >
                   <span class='column-title'><%= "#{reference[:foreign_table_name]}_id" %></span>
                 </div>

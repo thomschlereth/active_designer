@@ -89,7 +89,7 @@ p {
 
 .canvasBorder {
   background: linear-gradient(#373A3C,#2B2E30);
-  border: 3px solid #D4BF99;
+  border: 3px solid #D9D9DA;
   height: 88vh;
   width: 98%;
   margin-top: .5%;
@@ -109,7 +109,7 @@ p {
 
 .jtk-connector {
   z-index:1;
-  opacity: .7;
+  opacity: .5;
 }
 
 .switch {
@@ -133,7 +133,7 @@ p {
   left: 0;
   right: 0;
   background-color: #4B5B75;
-  border: 1px solid #D4BF99;
+  border: 1px solid #D9D9DA;
   z-index: 0;
   border-radius: 4px;
 }
@@ -146,11 +146,11 @@ p {
   left: 65px;
   top:38.5%;
   background-color: #4B5B75;
-  border: 1px solid #D4BF99;
+  border: 1px solid #D9D9DA;
 }
 
 .zoom-button {
-  color: #D4BF99;
+  color: #D9D9DA;
   position: absolute;
   top:20%;
   opacity: 1;

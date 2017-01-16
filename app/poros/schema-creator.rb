@@ -62,7 +62,6 @@ class SchemaCreator
           foreign_table_id = table[0] if table[1][:name] == foreign_table_name
         end
         reference_id = "ref-#{table_id.split('-')[1]}-#{reference_index}"
-        # reference_id = "ref-#{table[0].split('-')[1]}-#{reference_index}"
         tables[table_id][:references][reference_id] = {
           id: reference_id,
           table_id: table_id,

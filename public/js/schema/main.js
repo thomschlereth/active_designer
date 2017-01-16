@@ -5,7 +5,6 @@ $(document).ready(function() {
     schema = JSON.parse($('schema').text())
     $('schema')[0].outerHTML = ""
     window.setZoom(zoom,null,null,$('#foo')[0])
-    console.log(zoom)
     addReferences()
     addListeners()
   }
