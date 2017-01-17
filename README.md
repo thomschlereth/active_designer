@@ -1,22 +1,35 @@
-# SQL Helper
+# Active Designer
 
-### Overview
+Active Designer is a gem that allows a user to easily create a visual format of their Active Record schema.rb file for an SQL database. With just one command from the command line, it creates an HTML file in the root of the user’s Ruby project. Active Designer is an easy to use Visual Interface that opens locally in the browser and works offline to CRUD tables and columns!
 
-A project that allow the user to load a Active Record Schema file. The file is processed and turned into a interactive visual format that the user can add or delete from. 
-Once the user is done creating their Schema they can hit a print button and the necessary PostgreSQL queries are printed to the screen for them to copy and use as they will. 
+### Instructions
 
-### Future
+Install the gem.
 
-This project is currently setup as a webapp. After it was setup as so I realized it would be more handy as a Ruby Gem. I'll keep the web version as it already exists but in the future it will:
+`$ gem install active-designer`
 
-* Be a Ruby Gem
-* Create only new/updated Active Record migrations for a user when they click "print/finished" ignoring existing migrations
-* Have command line commands for loading users Active Record schema and opening/viewing html file to view schema
+This should output:
 
-### Way Future
+```
+Successfully installed active-designer-1.1.4
+Parsing documentation for active-designer-1.1.4
+Done installing documentation for active-designer after 0 seconds
+1 gem installed
+```
 
-This project is built where the guts could be ripped out and this could take in schema's for languages other than Ruby's Active Record. It could then be made into a Package for said langauge.
+From the root of your project run the command:
+
+`$ active_designer create pathway_to_db e.g(./db/schema.rb)`
+
+```
+Created active-designer/index.html
+```
+
+Now you are ready to open the file you just created
+
+`$ open active-designer/index.html`
 
 
-[![ScreenShot](https://raw.github.com/thompickett/sql-helper/master/public/sql-youtube-preview.png)](https://youtu.be/NK66ipPWqSk)
+Have fun!
 
+![ScreenShot](https://raw.github.com/thompickett/active-designer/master/example.png)
