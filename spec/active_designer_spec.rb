@@ -1,5 +1,6 @@
 require 'stringio'
 require 'active_designer'
+require 'fileutils'
 
 root_dir    = File.realdirpath '..', __dir__
 ad_dir      = File.join root_dir, 'active-designer'
@@ -17,7 +18,7 @@ RSpec.describe 'ActiveDesigner.call' do
 
   describe 'help' do
     it 'prints the help screen to stdout and exits successfully' do
-      exitstatus = call argv: ['help'], stdout: default_stdout
+      exitstatus = call argv: ['--help'], stdout: default_stdout
       expect(default_stdout.string).to include "To create a schema"
       expect(exitstatus).to eq 0
     end
@@ -25,8 +26,8 @@ RSpec.describe 'ActiveDesigner.call' do
     it 'is triggered by h, help' do
       stdout_h    = StringIO.new
       stdout_help = StringIO.new
-      call argv: ['h'],    stdout: stdout_h
-      call argv: ['help'], stdout: stdout_help
+      call argv: ['-h'],    stdout: stdout_h
+      call argv: ['--help'], stdout: stdout_help
       expect(stdout_h.string).to_not be_empty
       expect(stdout_h.string).to eq stdout_help.string
     end
@@ -35,23 +36,23 @@ RSpec.describe 'ActiveDesigner.call' do
   describe 'create' do
     it 'places the output in active-designer/index.html' do
       FileUtils.rm_rf ad_dir
-      call argv: ['create', schema_path], stdout: default_stdout
+      call argv: ['--create', schema_path], stdout: default_stdout
       expect(default_stdout.string).to_not include "y/n"
     end
 
     it 'creates the active-designer directory, regardless of whether it exists or not' do
       FileUtils.rm_rf ad_dir
       expect(Dir.exist? ad_dir).to eq false
-      call argv: ['create', schema_path]
+      call argv: ['--create', schema_path]
       expect(Dir.exist? ad_dir).to eq true
-      call argv: ['create', schema_path]
+      call argv: ['--create', schema_path]
       expect(Dir.exist? ad_dir).to eq true
     end
 
     describe 'when the file has not previously been generated' do
       it 'succeeds with a notification and no user prompt' do
         FileUtils.rm_rf ad_dir
-        exitstatus = call argv: ['create', schema_path], stdout: default_stdout
+        exitstatus = call argv: ['--create', schema_path], stdout: default_stdout
         expect(exitstatus).to eq 0
         expect(default_stdout.string).to include 'Created'
         expect(default_stdout.string).to_not include "y/n"
@@ -67,7 +68,7 @@ RSpec.describe 'ActiveDesigner.call' do
 
       describe 'when the user wants to override the old results' do
         let! :status do
-          call argv: ['create', schema_path],
+          call argv: ['--create', schema_path],
                stdin: StringIO.new("blah\ny\n"),
                stdout: default_stdout,
                stderr: default_stderr
@@ -98,7 +99,7 @@ RSpec.describe 'ActiveDesigner.call' do
 
       describe 'when the user does NOT want to override the old results' do
         let! :status do
-          call argv: ['create', schema_path],
+          call argv: ['--create', schema_path],
                stdin: StringIO.new("blah\nblah\nn\nblah"),
                stdout: default_stdout,
                stderr: default_stderr
@@ -130,7 +131,7 @@ RSpec.describe 'ActiveDesigner.call' do
     context 'when the schema.rb path does not exist' do
       it 'prints a helpful error and exits unsuccessfully' do
         path   = "missing-path"
-        status = call argv: ['create', path], stderr: default_stderr
+        status = call argv: ['--create', path], stderr: default_stderr
         expect(default_stderr.string).to include '"missing-path"'
         expect(status).to eq 1
       end
@@ -138,7 +139,7 @@ RSpec.describe 'ActiveDesigner.call' do
 
     describe 'when the schema.rb path is not provided' do
       it 'prints a helpful error and exits unsuccessfully' do
-        status = call argv: ['create'], stderr: default_stderr
+        status = call argv: ['--create'], stderr: default_stderr
         expect(default_stderr.string).to match /no path was provided/i
         expect(status).to eq 1
       end

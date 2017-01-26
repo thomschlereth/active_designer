@@ -1,37 +1,37 @@
 #!/usr/bin/env ruby
-require 'erb'
-require 'file_converter.rb'
-
-if ARGV[0] == "create"
-  renderer = FileConverter.template
-  message = FileConverter.new(ARGV[1])
-
-  if Dir["active-designer"].empty?
-    Dir.mkdir 'active-designer'
-  end
-
-  if Dir["active-designer/index.html"].length > 0
-    print "Do you wish to overwite active-designer/index.html?(y/n) "
-    overwrite_answer = $stdin.gets.chomp.downcase
-    until overwrite_answer == "y" || overwrite_answer == "n"
-      print "Do you wish to overwite active-designer/index.html?(y/n) "
-      overwrite_answer = $stdin.gets.chomp.downcase
-    end
-    if overwrite_answer == "y"
-      File.open('active-designer/index.html', 'w') do |f|
-        f.write renderer.result message.get_binding
-        puts "\nCreated active-designer/index.html"
-      end
-    else
-      "Aborted"
-    end
-  else
-    File.open('active-designer/index.html', 'w') do |f|
-      f.write renderer.result message.get_binding
-      puts "\nCreated active-designer/index.html"
-    end
-  end
-elsif ARGV[0] == "help" || ARGV[0] == "h"
-  puts "To create a schema run '$ active-designer create filepath'"
-  puts "If youre in the root of a Sinatra or Ruby on Rails project the filepath should be './db/schema.rb'"
-end
+# require 'erb'
+# require 'file_converter.rb'
+#
+# if ARGV[0] == "create"
+#   renderer = FileConverter.template
+#   message = FileConverter.new(ARGV[1])
+#
+#   if Dir["active-designer"].empty?
+#     Dir.mkdir 'active-designer'
+#   end
+#
+#   if Dir["active-designer/index.html"].length > 0
+#     print "Do you wish to overwite active-designer/index.html?(y/n) "
+#     overwrite_answer = $stdin.gets.chomp.downcase
+#     until overwrite_answer == "y" || overwrite_answer == "n"
+#       print "Do you wish to overwite active-designer/index.html?(y/n) "
+#       overwrite_answer = $stdin.gets.chomp.downcase
+#     end
+#     if overwrite_answer == "y"
+#       File.open('active-designer/index.html', 'w') do |f|
+#         f.write renderer.result message.get_binding
+#         puts "\nCreated active-designer/index.html"
+#       end
+#     else
+#       "Aborted"
+#     end
+#   else
+#     File.open('active-designer/index.html', 'w') do |f|
+#       f.write renderer.result message.get_binding
+#       puts "\nCreated active-designer/index.html"
+#     end
+#   end
+# elsif ARGV[0] == "help" || ARGV[0] == "h"
+#   puts "To create a schema run '$ active-designer create filepath'"
+#   puts "If youre in the root of a Sinatra or Ruby on Rails project the filepath should be './db/schema.rb'"
+# end
