@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+lib_dir = File.realdirpath("../lib", __dir__)
+$LOAD_PATH.unshift(lib_dir)
+
+require "active_designer"
+status = ActiveDesigner.call(ARGV, $stdin, $stdout, $stderr)
+exit(status)
