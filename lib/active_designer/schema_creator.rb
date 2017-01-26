@@ -3,8 +3,8 @@ module ActiveDesigner
 
     attr_reader :output
 
-    def format(string)
-      schema = delete_comments(string.split("\n"))
+    def format(schema)
+      schema = delete_comments(schema.split("\n"))
       create_tables(schema)
     end
 

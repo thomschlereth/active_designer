@@ -8,17 +8,20 @@ module ActiveDesigner
       schema      = ActiveDesigner::SchemaCreator.new
       gems        = ENV["GEM_HOME"]
       @file_name  = Dir.pwd.split('/')[-1]
-      @path       = gems.strip + "/gems/active-designer-1.1.4/lib"
+      @path       = APP_ROOT
       @tables     = schema.format(schema_file)
       @schema     = JSON.generate(@tables)
     end
 
     def render
-      file     = File.join( File.dirname(__FILE__), '/template.html.erb' )
-      template = File.read(file)
-      renderer = ERB.new(template)
-      renderer.result binding()
+      ERB.new(TEMPLATE).result binding()
     end
 
   end
+
+  private
+
+    APP_ROOT      = File.realdirpath(__dir__)
+    TEMPLATE_PATH = File.join(__dir__, '/template.html.erb')
+    TEMPLATE      = File.read(TEMPLATE_PATH)
 end
