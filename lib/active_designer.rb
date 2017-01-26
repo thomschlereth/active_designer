@@ -1,7 +1,7 @@
 require 'erb'
-require 'file_converter.rb'
+require 'active_designer/file_converter.rb'
 
-class ActiveDesigner
+module ActiveDesigner
 
   def self.call(argv,stdin,stdout,stderr)
     command = argv[0]
@@ -48,20 +48,23 @@ class ActiveDesigner
     end
   end
 
-  def self.overwrite?(stdin, stdout, path)
-    loop do
-      stdout.print "Do you wish to overwrite #{path}?(y/n) "
-      answer = stdin.gets.chomp.downcase
-      return answer == "y" if answer == "y" || answer == "n"
-    end
-  end
+  private
 
-  def self.create(output_path,input_path,stdout)
-    message  = FileConverter.new(input_path)
-    renderer = FileConverter.template
-    body     = renderer.result message.get_binding
-    File.write(output_path,message)
-    stdout.puts "\nCreated #{output_path}"
-    return 0
-  end
+    def self.overwrite?(stdin, stdout, path)
+      loop do
+        stdout.print "Do you wish to overwrite #{path}?(y/n) "
+        answer = stdin.gets.chomp.downcase
+        return answer == "y" if answer == "y" || answer == "n"
+      end
+    end
+
+    def self.create(output_path,input_path,stdout)
+      message  = ActiveDesigner::FileConverter.new(input_path)
+      renderer = ActiveDesigner::FileConverter.template
+      body     = renderer.result message.get_binding
+      File.write(output_path,message)
+      stdout.puts "\nCreated #{output_path}"
+      return 0
+    end
+
 end
