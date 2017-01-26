@@ -19,8 +19,9 @@ class ActiveDesigner
 
     if command == "--create"
       input_path  = argv[1]
-      output_path = "active-designer/index.html"
+      output_path = "active_designer/index.html"
       output_dir  = File.dirname output_path
+
       if !input_path
         stderr.puts "No path was provided, use -h or --help for more information"
         return 1

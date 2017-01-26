@@ -22,14 +22,14 @@ From the root of your project run the command:
 `$ active_designer create pathway_to_db e.g(./db/schema.rb)`
 
 ```
-Created active-designer/index.html
+Created active_designer/index.html
 ```
 
 Now you are ready to open the file you just created
 
-`$ open active-designer/index.html`
+`$ open active_designer/index.html`
 
 
 Have fun!
 
-![ScreenShot](https://raw.github.com/thompickett/active-designer/master/example.png)
+![ScreenShot](https://raw.github.com/thompickett/active_designer/master/example.png)

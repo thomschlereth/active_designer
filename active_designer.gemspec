@@ -30,8 +30,8 @@ summary = "Active Designer is an easy to use Visual Interface that opens locally
 description = "Active Designer is a gem that allows a user to easily create a visual format of their Active Record schema.rb file for an SQL database. With just one command from the command line, it creates an HTML file in the root of the user’s Ruby project. Active Designer is an easy to use Visual Interface that opens locally in the browser and works offline to CRUD tables and columns!"
 
 Gem::Specification.new do |s|
-  s.name        = 'active-designer'
-  s.version     = '1.1.4'
+  s.name        = 'active_designer'
+  s.version     = '0.0.1'
   s.executables << 'active_designer'
   s.date        = '2017-01-16'
   s.summary     = summary

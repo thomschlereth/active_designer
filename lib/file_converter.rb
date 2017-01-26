@@ -1,4 +1,5 @@
 require 'json'
+require 'schema_creator.rb'
 
 class FileConverter
 
@@ -23,5 +24,3 @@ class FileConverter
   end
 
 end
-
-require 'schema-creator.rb'

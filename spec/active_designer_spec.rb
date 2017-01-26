@@ -3,7 +3,7 @@ require 'active_designer'
 require 'fileutils'
 
 root_dir    = File.realdirpath '..', __dir__
-ad_dir      = File.join root_dir, 'active-designer'
+ad_dir      = File.join root_dir, 'active_designer'
 schema_path = File.join root_dir, 'db', 'schema.rb'
 output_path = File.join ad_dir,   'index.html'
 
