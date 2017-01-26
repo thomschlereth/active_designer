@@ -59,10 +59,9 @@ module ActiveDesigner
     end
 
     def self.create(output_path,input_path,stdout)
-      message  = ActiveDesigner::FileConverter.new(input_path)
-      renderer = ActiveDesigner::FileConverter.template
-      body     = renderer.result message.get_binding
-      File.write(output_path,message)
+      input_body = File.read(input_path)
+      converter  = ActiveDesigner::FileConverter.new(input_body)
+      File.write(output_path, converter.render)
       stdout.puts "\nCreated #{output_path}"
       return 0
     end
