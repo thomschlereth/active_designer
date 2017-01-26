@@ -6,14 +6,14 @@ Active Designer is a gem that allows a user to easily create a visual format of 
 
 Install the gem.
 
-`$ gem install active-designer`
+`$ gem install active_designer`
 
 This should output:
 
 ```
-Successfully installed active-designer-1.1.4
-Parsing documentation for active-designer-1.1.4
-Done installing documentation for active-designer after 0 seconds
+Successfully installed active_designer-1.1.4
+Parsing documentation for active_designer-1.1.4
+Done installing documentation for active_designer after 0 seconds
 1 gem installed
 ```
 
