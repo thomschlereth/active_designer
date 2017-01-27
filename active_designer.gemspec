@@ -32,7 +32,7 @@ description = "Active Designer is a gem that allows a user to easily create a vi
 
 Gem::Specification.new do |s|
   s.name        = 'active_designer'
-  s.version     = '0.0.2'
+  s.version     = '0.0.3'
   s.executables << 'active_designer'
   s.date        = '2017-01-26'
   s.summary     = summary
