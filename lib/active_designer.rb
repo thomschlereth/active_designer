@@ -24,11 +24,13 @@ module ActiveDesigner
 
       if !input_path
         stderr.puts "No path was provided, use -h or --help for more information"
+
         return 1
       end
 
       if !File.exist?(input_path)
         stderr.puts "#{input_path.inspect} does not exist, use -h or --help for more information"
+
         return 1
       end
 
@@ -36,6 +38,7 @@ module ActiveDesigner
 
       if File.exist?(output_path) && !overwrite?(stdin, stdout, output_path)
         stderr.puts "Aborted"
+
         return 1
       end
 

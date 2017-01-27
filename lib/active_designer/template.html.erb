@@ -111,7 +111,9 @@
       <% end %>
     </div>
   </div>
-  <schema><%= @schema %></schema>
+  <script>
+    localStorage.setItem("schema",JSON.stringify(<%= @schema %>))
+  </script>
 
 </body>
 
