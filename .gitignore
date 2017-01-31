@@ -2,3 +2,4 @@
 /active_designer
 /db
 .DS_Store
+.bundle.js
