@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/thompickett/active_designer/issues"
   },
-  "homepage": "https://github.com/thompickett/active_designer#readme"
+  "homepage": "https://github.com/thompickett/active_designer#readme",
+  "devDependencies": {
+    "decache": "^4.1.0"
+  }
 }
