@@ -1,7 +1,12 @@
 const assert = require('assert');
-const Column = require('../column.js')
+const Column = require('../lib/active_designer/public/js/schema/column.js')
 
 describe("Column", function() {
+
+  before(() => {
+    let $ = jQuery = require('jquery');
+    global.$ = $;
+  });
 
   afterEach(function() {
     Column.collection = {};
@@ -46,7 +51,7 @@ describe("Column", function() {
       let options2 = {id: 2, originalName: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
       let column1 = new Column(options1);
       let column2 = new Column(options2);
-      assert.deepEqual(column1, Column.findBy("name", "name"));
+      assert.deepEqual([column1], Column.findBy("name", "name"));
     });
 
     it("should find and return correct column when passed param, originalName, and it's value", function() {
@@ -54,7 +59,7 @@ describe("Column", function() {
       let options2 = {id: 2, original_name: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
       let column1 = new Column(options1);
       let column2 = new Column(options2);
-      assert.deepEqual(column1, Column.findBy("originalName", "username"));
+      assert.deepEqual([column1], Column.findBy("originalName", "username"));
     });
 
     it("shouldn't find correct column when passed param, 'originalName' if all columns, 'originalName' are set to false", function() {
@@ -70,7 +75,7 @@ describe("Column", function() {
       let options2 = {id: 2, original_name: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
       let column1 = new Column(options1);
       let column2 = new Column(options2);
-      assert.deepEqual(column1, Column.findBy("type", "integer"));
+      assert.deepEqual([column1], Column.findBy("type", "integer"));
     });
 
     it("should find and return correct column when passed param, originalType, and it's value", function() {
@@ -78,7 +83,7 @@ describe("Column", function() {
       let options2 = {id: 2, original_name: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
       let column1 = new Column(options1);
       let column2 = new Column(options2);
-      assert.deepEqual(column1, Column.findBy("originalType", "integer"));
+      assert.deepEqual([column1], Column.findBy("originalType", "integer"));
     });
 
     it("shouldn't find correct column when passed param, 'originalType' if all columns, 'originalType' are set to false", function() {
@@ -94,7 +99,7 @@ describe("Column", function() {
       let options2 = {id: 2, original_name: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
       let column1 = new Column(options1);
       let column2 = new Column(options2);
-      assert.deepEqual(column1, Column.findBy("id", 1));
+      assert.deepEqual([column1], Column.findBy("id", 1));
     });
 
     it("should return false if param is 'status'", function() {
@@ -106,7 +111,7 @@ describe("Column", function() {
     });
 
     it("should return false if column can't be found", function() {
-      assert.deepEqual(false, Column.findBy("name","name"));
+      assert.deepEqual([], Column.findBy("name","name"));
     });
 
     it("should return false if param is invalid", function() {
@@ -114,7 +119,36 @@ describe("Column", function() {
       let options2 = {id: 2, original_name: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
       let column1 = new Column(options1);
       let column2 = new Column(options2);
-      assert.deepEqual(false, Column.findBy("goop","name"));
+      assert.deepEqual([], Column.findBy("goop","name"));
+    });
+
+  });
+
+  describe("findByFullStatus()", function() {
+    it("should return collection of columns that matches complete 'status' object", function() {
+      let options1 = {id: 1, original_name: "username", name: "name", type: "integer", original_type: "integer", status: { new: false, original: true, modified: true, deleted: false } };
+      let options2 = {id: 2, original_name: "password", name: "password", type: "string", status: { new: false, original: true, modified: true, deleted: false } };
+      let column1 = new Column(options1);
+      let column2 = new Column(options2);
+      assert.deepEqual([column1,column2], Column.findByFullStatus(column1.status));
+    });
+  });
+
+  describe("findByStatus()", function() {
+    it("should return collection of columns that matches specific 'status' type", function() {
+      let options1 = {id: 1, original_name: "username", name: "name", type: "integer", original_type: "integer", status: { new: false, original: true, modified: true, deleted: false } };
+      let options2 = {id: 2, original_name: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
+      let column1 = new Column(options1);
+      let column2 = new Column(options2);
+      assert.deepEqual([column2], Column.findByStatus("modified",column2.status.modified));
+    });
+
+    it("should return false if boolean isn't boolean", function() {
+      assert.equal(false, Column.findByStatus("original","name"));
+    });
+
+    it("should return false if statusType isn't one of four types", function() {
+      assert.equal(false, Column.findByStatus("original",true));
     });
 
   });
