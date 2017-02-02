@@ -153,4 +153,48 @@ describe("Column", function() {
 
   });
 
+  describe("update()", function() {
+    it("should find column by id and update it with given params", function() {
+      let options1 = {id: 1, original_name: "usernam", name: "usernam", type: "integer", original_type: "integer", status: { new: false, original: true, modified: false, deleted: false } };
+      let options2 = {name: "username", type: "integer" };
+      new Column(options1);
+      let column = Column.find(1)
+      assert.deepEqual("usernam", column.name);
+      assert.deepEqual("usernam", column.originalName);
+      assert.deepEqual("integer", column.type);
+      assert.deepEqual(true, column.status.original);
+      assert.deepEqual(false, column.status.modified);
+
+      Column.update(1,options2)
+
+      assert.deepEqual("usernam", column.originalName);
+      assert.deepEqual("username", column.name);
+      assert.deepEqual("integer", column.type);
+      assert.deepEqual("integer", column.originalType);
+      assert.deepEqual(true, column.status.original);
+      assert.deepEqual(true, column.status.modified);
+    });
+
+    it("should update modifed status to false if update reverts column to original", function() {
+      let options1 = {id: 1, original_name: "username", name: "name", type: "integer", original_type: "integer", status: { new: false, original: true, modified: true, deleted: false } };
+      let options2 = {name: "username", type: "integer" };
+      new Column(options1);
+      let column = Column.find(1)
+      assert.deepEqual("name", column.name);
+      assert.deepEqual("integer", column.type);
+      assert.deepEqual(true, column.status.original);
+      assert.deepEqual(true, column.status.modified);
+
+      Column.update(1,options2)
+
+      assert.deepEqual("username", column.name);
+      assert.deepEqual("username", column.originalName);
+      assert.deepEqual("integer", column.type);
+      assert.deepEqual("integer", column.originalType);
+      assert.deepEqual(true, column.status.original);
+      assert.deepEqual(false, column.status.modified);
+    });
+
+  });
+
 });
