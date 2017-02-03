@@ -336,9 +336,21 @@ describe("Column", function() {
       assert.equal(false, column1.status.modified);
     });
 
-    // it("should return false if it can't find column by id", function() {
-    //   assert.equal(false,Column.delete(1))
-    // });
+    it("should return false if column.status.original is false", function() {
+      let column1 = {id: 1, originalName: "username", name: "username", type: "integer", originalType: "integer", status: { new: true, original: false, modified: true, deleted: false } };
+      assert.equal(false,Column.statusUpdate(column1))
+    });
+
+  });
+
+  describe("statusUpdate()", function() {
+
+    it("should update status.modifed to true if original when name or types differ from original", function() {
+      let options1 = {id: 1, original_name: "username", name: "usernam", type: "integer", original_type: "integer", status: { new: false, original: true, modified: true, deleted: false } };
+      new Column(options1);
+      let column1 = Column.find(1)
+      assert.deepEqual([], column1.table());
+    });
 
   });
 
