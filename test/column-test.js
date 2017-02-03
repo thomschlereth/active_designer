@@ -311,4 +311,35 @@ describe("Column", function() {
 
   });
 
+  describe("statusUpdate()", function() {
+
+    it("should update status.modifed to true if original when name or types differ from original", function() {
+      let column1 = {id: 1, originalName: "username", name: "usernam", type: "integer", originalType: "integer", status: { new: false, original: true, modified: false, deleted: false } };
+      let column2 = {id: 2, originalName: "username", name: "username", type: "integer", originalType: "string", status: { new: false, original: true, modified: false, deleted: false } };
+      let status = { new: false, original: true, modified: true, deleted: false }
+
+      assert.equal(false, column1.status.modified);
+      assert.equal(false, column2.status.modified);
+      assert.deepEqual(status, Column.statusUpdate(column1));
+      assert.deepEqual(status, Column.statusUpdate(column2));
+      assert.equal(true, column1.status.modified);
+      assert.equal(true, column2.status.modified);
+
+    });
+
+    it("should update status.modifed to false if original when name or types are same as original", function() {
+      let column1 = {id: 1, originalName: "username", name: "username", type: "integer", originalType: "integer", status: { new: false, original: true, modified: true, deleted: false } };
+      let status = { new: false, original: true, modified: false, deleted: false }
+
+      assert.equal(true, column1.status.modified);
+      assert.deepEqual(status, Column.statusUpdate(column1));
+      assert.equal(false, column1.status.modified);
+    });
+
+    // it("should return false if it can't find column by id", function() {
+    //   assert.equal(false,Column.delete(1))
+    // });
+
+  });
+
 });
