@@ -24,6 +24,18 @@ describe("Column", function() {
       assert.deepEqual(expected, Column.all());
     });
 
+    // it("should not contain columns that have deleted status", function() {
+    //   let options1 = {id: 1, originalName: "username", name: "name", type: "integer", status: { new: false, original: true, modified: true, deleted: false } };
+    //   let options2 = {id: 2, originalName: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
+    //   let options3 = {id: 3, originalName: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
+    //   let column1 = new Column(options1);
+    //   let column2 = new Column(options2);
+    //   let column3 = new Column(options3);
+    //   Column.delete(3)
+    //   let expected = [column1,column2];
+    //   assert.deepEqual(expected, Column.all());
+    // });
+
     it("should return empty array when there are no columns", function() {
       assert.deepEqual([], Column.all());
     });
@@ -193,6 +205,101 @@ describe("Column", function() {
       assert.deepEqual("integer", column.originalType);
       assert.deepEqual(true, column.status.original);
       assert.deepEqual(false, column.status.modified);
+    });
+
+    it("should return false if it can't find column by id", function() {
+      let options2 = {name: "username", type: "integer" };
+
+      assert.equal(false,Column.update(2,options2))
+    });
+
+  });
+
+  describe("updateBy()", function() {
+    it("should find columns by param and update them and status.modified should equal true", function() {
+      let options1 = {id: 1, original_name: "username", name: "username", type: "integer", original_type: "integer", status: { new: false, original: true, modified: false, deleted: false } };
+      let options2 = {id: 2, original_name: "username", name: "username", type: "integer", original_type: "integer", status: { new: false, original: true, modified: false, deleted: false } };
+      let options3 = {name: "name" };
+      new Column(options1);
+      new Column(options2);
+      let column1 = Column.find(1)
+      let column2 = Column.find(2)
+
+      assert.equal("username", column1.name);
+      assert.equal("username", column1.originalName);
+      assert.equal(true, column1.status.original);
+      assert.equal(false, column1.status.modified);
+
+      assert.equal("username", column2.name);
+      assert.equal("username", column2.originalName);
+      assert.equal(true, column2.status.original);
+      assert.equal(false, column2.status.modified);
+
+      assert.deepEqual([column1,column2],Column.updateBy("name","username",options3));
+
+      assert.equal("name", column1.name);
+      assert.equal("username", column1.originalName);
+      assert.equal(true, column1.status.original);
+      assert.equal(true, column1.status.modified);
+
+      assert.equal("name", column2.name);
+      assert.equal("username", column2.originalName);
+      assert.equal(true, column2.status.original);
+      assert.equal(true, column2.status.modified);
+    });
+
+    it("should find columns by param and update them and status.modified should equal false", function() {
+      let options1 = {id: 1, original_name: "username", name: "usernam", type: "integer", original_type: "integer", status: { new: false, original: true, modified: true, deleted: false } };
+      let options2 = {id: 2, original_name: "username", name: "usernam", type: "integer", original_type: "integer", status: { new: false, original: true, modified: true, deleted: false } };
+      let options3 = { name: "username" };
+      new Column(options1);
+      new Column(options2);
+      let column1 = Column.find(1);
+      let column2 = Column.find(2);
+
+      assert.equal("usernam", column1.name);
+      assert.equal("username", column1.originalName);
+      assert.equal(true, column1.status.original);
+      assert.equal(true, column1.status.modified);
+
+      assert.equal("usernam", column2.name);
+      assert.equal("username", column2.originalName);
+      assert.equal(true, column2.status.original);
+      assert.equal(true, column2.status.modified);
+
+      assert.deepEqual([column1,column2],Column.updateBy("name","usernam",options3));
+
+      assert.equal("username", column1.name);
+      assert.equal("username", column1.originalName);
+      assert.equal(true, column1.status.original);
+      assert.equal(false, column1.status.modified);
+
+      assert.equal("username", column2.name);
+      assert.equal("username", column2.originalName);
+      assert.equal(true, column2.status.original);
+      assert.equal(false, column2.status.modified);
+    });
+
+    it("should return false if it can't find columns by param and value", function() {
+      let options2 = {name: "username", type: "integer" };
+
+      assert.equal(false,Column.update(2,options2))
+    });
+  });
+
+  describe("delete()", function() {
+    it("should find column and set values status.deleted to true", function() {
+      let options1 = {id: 1, original_name: "username", name: "usernam", type: "integer", original_type: "integer", status: { new: false, original: true, modified: true, deleted: false } };
+
+      new Column(options1);
+      let column1 = Column.find(1)
+      assert.equal(false, column1.status.deleted);
+      Column.delete(1)
+      assert.equal(true, column1.status.deleted);
+    });
+
+    it("should return false if it can't find column by id", function() {
+      assert.equal(false,Column.delete(1))
     });
 
   });
