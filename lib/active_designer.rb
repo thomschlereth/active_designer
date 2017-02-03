@@ -12,7 +12,7 @@ module ActiveDesigner
     end
 
     if command == "--help" || command == "-h"
-      stdout.puts "To create a schema run '$ active-designer create filepath'"
+      stdout.puts "To create a schema run '$ active-designer --create filepath'"
       stdout.puts "If youre in the root of a Sinatra or Ruby on Rails project the filepath should be './db/schema.rb'"
       return 0
     end
