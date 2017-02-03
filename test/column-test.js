@@ -24,17 +24,17 @@ describe("Column", function() {
       assert.deepEqual(expected, Column.all());
     });
 
-    // it("should not contain columns that have deleted status", function() {
-    //   let options1 = {id: 1, originalName: "username", name: "name", type: "integer", status: { new: false, original: true, modified: true, deleted: false } };
-    //   let options2 = {id: 2, originalName: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
-    //   let options3 = {id: 3, originalName: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
-    //   let column1 = new Column(options1);
-    //   let column2 = new Column(options2);
-    //   let column3 = new Column(options3);
-    //   Column.delete(3)
-    //   let expected = [column1,column2];
-    //   assert.deepEqual(expected, Column.all());
-    // });
+    it("should not contain columns that have deleted status", function() {
+      let options1 = {id: 1, originalName: "username", name: "name", type: "integer", status: { new: false, original: true, modified: true, deleted: false } };
+      let options2 = {id: 2, originalName: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
+      let options3 = {id: 3, originalName: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
+      let column1 = new Column(options1);
+      let column2 = new Column(options2);
+      let column3 = new Column(options3);
+      Column.delete(3)
+      let expected = [column1,column2];
+      assert.deepEqual(expected, Column.all());
+    });
 
     it("should return empty array when there are no columns", function() {
       assert.deepEqual([], Column.all());
