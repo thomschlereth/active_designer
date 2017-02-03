@@ -51,6 +51,13 @@ describe("Column", function() {
       assert.deepEqual(column2, Column.find(2));
     });
 
+    it("should not be able to find column that is deleted", function() {
+      let options1 = {id: 1, originalName: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
+      let column1 = new Column(options1);
+      Column.delete(1)
+      assert.deepEqual(false, Column.find(1));
+    });
+
     it("should return false if column can't be found", function() {
       assert.deepEqual(false, Column.find(1));
     });
