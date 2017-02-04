@@ -9,6 +9,11 @@ describe("Column", function() {
     global.$ = $;
   });
 
+  beforeEach(function() {
+    let tableOpts = {name: "trees", columns: {}, references: {}, status: {} }
+    new Table(tableOpts)
+  });
+
   afterEach(function() {
     Column.collection = {};
     Column.idTracker = 101;
@@ -19,7 +24,7 @@ describe("Column", function() {
 
     it("should return array containing all columns", function() {
       let options1 = {table_id: "101", originalName: "username", name: "name", type: "integer", status: { new: false, original: true, modified: true, deleted: false } };
-      let options2 = {table_id: "102", originalName: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
+      let options2 = {table_id: "101", originalName: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
       let column1 = new Column(options1);
       let column2 = new Column(options2);
 
@@ -29,8 +34,8 @@ describe("Column", function() {
 
     it("should not contain columns that have deleted status", function() {
       let options1 = {table_id: "101", originalName: "username", name: "name", type: "integer", status: { new: false, original: true, modified: true, deleted: false } };
-      let options2 = {table_id: "102", originalName: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
-      let options3 = {table_id: "103", originalName: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
+      let options2 = {table_id: "101", originalName: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
+      let options3 = {table_id: "101", originalName: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
       let column1 = new Column(options1);
       let column2 = new Column(options2);
       let column3 = new Column(options3);
@@ -48,7 +53,7 @@ describe("Column", function() {
   describe("find()", function() {
     it("should find and return correct column by it's id", function() {
       let options1 = {table_id: "101", originalName: "username", name: "name", type: "integer", status: { new: false, original: true, modified: true, deleted: false } };
-      let options2 = {table_id: "102", originalName: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
+      let options2 = {table_id: "101", originalName: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
       let column1 = new Column(options1);
       let column2 = new Column(options2);
       assert.deepEqual(column2, Column.find(102));
@@ -70,7 +75,7 @@ describe("Column", function() {
   describe("findBy()", function() {
     it("should find and return correct column when passed param, name, and it's value", function() {
       let options1 = {table_id: "101", originalName: "username", name: "name", type: "integer", status: { new: false, original: true, modified: true, deleted: false } };
-      let options2 = {table_id: "102", originalName: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
+      let options2 = {table_id: "101", originalName: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
       let column1 = new Column(options1);
       let column2 = new Column(options2);
       assert.deepEqual([column1], Column.findBy("name", "name"));
@@ -78,7 +83,7 @@ describe("Column", function() {
 
     it("should find and return correct column when passed param, originalName, and it's value", function() {
       let options1 = {table_id: "101", original_name: "username", name: "name", type: "integer", status: { new: false, original: true, modified: true, deleted: false } };
-      let options2 = {table_id: "102", original_name: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
+      let options2 = {table_id: "101", original_name: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
       let column1 = new Column(options1);
       let column2 = new Column(options2);
       assert.deepEqual([column1], Column.findBy("originalName", "username"));
@@ -86,7 +91,7 @@ describe("Column", function() {
 
     it("shouldn't find correct column when passed param, 'originalName' if all columns, 'originalName' are set to false", function() {
       let options1 = {table_id: "101", name: "name", type: "integer", original_type: "integer", status: { new: false, original: true, modified: true, deleted: false } };
-      let options2 = {table_id: "102", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
+      let options2 = {table_id: "101", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
       let column1 = new Column(options1);
       let column2 = new Column(options2);
       assert.deepEqual(false, Column.findBy("originalName", false));
@@ -94,7 +99,7 @@ describe("Column", function() {
 
     it("should find and return correct column when passed param, type, and it's value", function() {
       let options1 = {table_id: "101", original_name: "username", name: "name", type: "integer", status: { new: false, original: true, modified: true, deleted: false } };
-      let options2 = {table_id: "102", original_name: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
+      let options2 = {table_id: "101", original_name: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
       let column1 = new Column(options1);
       let column2 = new Column(options2);
       assert.deepEqual([column1], Column.findBy("type", "integer"));
@@ -102,7 +107,7 @@ describe("Column", function() {
 
     it("should find and return correct column when passed param, originalType, and it's value", function() {
       let options1 = {table_id: "101", original_name: "username", name: "name", type: "integer", original_type: "integer", status: { new: false, original: true, modified: true, deleted: false } };
-      let options2 = {table_id: "102", original_name: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
+      let options2 = {table_id: "101", original_name: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
       let column1 = new Column(options1);
       let column2 = new Column(options2);
       assert.deepEqual([column1], Column.findBy("originalType", "integer"));
@@ -110,7 +115,7 @@ describe("Column", function() {
 
     it("shouldn't find correct column when passed param, 'originalType' if all columns, 'originalType' are set to false", function() {
       let options1 = {table_id: "101", original_name: "username", name: "name", type: "integer", original_type: "integer", status: { new: false, original: true, modified: true, deleted: false } };
-      let options2 = {table_id: "102", original_name: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
+      let options2 = {table_id: "101", original_name: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
       let column1 = new Column(options1);
       let column2 = new Column(options2);
       assert.deepEqual(false, Column.findBy("originalType", false));
@@ -118,7 +123,7 @@ describe("Column", function() {
 
     it("should find and return correct column when passed param, 'id' and it's value", function() {
       let options1 = {table_id: "101", original_name: "username", name: "name", type: "integer", original_type: "integer", status: { new: false, original: true, modified: true, deleted: false } };
-      let options2 = {table_id: "102", original_name: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
+      let options2 = {table_id: "101", original_name: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
       let column1 = new Column(options1);
       let column2 = new Column(options2);
       assert.deepEqual([column1], Column.findBy("id", 101));
@@ -126,7 +131,7 @@ describe("Column", function() {
 
     it("should return false if param is 'status'", function() {
       let options1 = {table_id: "101", original_name: "username", name: "name", type: "integer", original_type: "integer", status: { new: false, original: true, modified: true, deleted: false } };
-      let options2 = {table_id: "102", original_name: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
+      let options2 = {table_id: "101", original_name: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
       let column1 = new Column(options1);
       let column2 = new Column(options2);
       assert.deepEqual(false, Column.findBy("status", options1.status));
@@ -138,7 +143,7 @@ describe("Column", function() {
 
     it("should return false if param is invalid", function() {
       let options1 = {table_id: "101", original_name: "username", name: "name", type: "integer", original_type: "integer", status: { new: false, original: true, modified: true, deleted: false } };
-      let options2 = {table_id: "102", original_name: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
+      let options2 = {table_id: "101", original_name: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
       let column1 = new Column(options1);
       let column2 = new Column(options2);
       assert.deepEqual([], Column.findBy("goop","name"));
@@ -149,7 +154,7 @@ describe("Column", function() {
   describe("findByFullStatus()", function() {
     it("should return collection of columns that matches complete 'status' object", function() {
       let options1 = {table_id: "101", original_name: "username", name: "name", type: "integer", original_type: "integer", status: { new: false, original: true, modified: true, deleted: false } };
-      let options2 = {table_id: "102", original_name: "password", name: "password", type: "string", status: { new: false, original: true, modified: true, deleted: false } };
+      let options2 = {table_id: "101", original_name: "password", name: "password", type: "string", status: { new: false, original: true, modified: true, deleted: false } };
       let column1 = new Column(options1);
       let column2 = new Column(options2);
       assert.deepEqual([column1,column2], Column.findByFullStatus(column1.status));
@@ -159,7 +164,7 @@ describe("Column", function() {
   describe("findByStatus()", function() {
     it("should return collection of columns that matches specific 'status' type", function() {
       let options1 = {table_id: "101", original_name: "username", name: "name", type: "integer", original_type: "integer", status: { new: false, original: true, modified: true, deleted: false } };
-      let options2 = {table_id: "102", original_name: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
+      let options2 = {table_id: "101", original_name: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
       let column1 = new Column(options1);
       let column2 = new Column(options2);
       assert.deepEqual([column2], Column.findByStatus("modified",column2.status.modified));
@@ -220,7 +225,7 @@ describe("Column", function() {
     it("should return false if it can't find column by id", function() {
       let options1 = {name: "username", type: "integer" };
 
-      assert.equal(false,Column.update(102,options1))
+      assert.equal(false,Column.update(101,options1))
     });
 
   });
@@ -228,7 +233,7 @@ describe("Column", function() {
   describe("updateBy()", function() {
     it("should find columns by param and update them and status.modified should equal true", function() {
       let options1 = {table_id: "101", original_name: "username", name: "username", type: "integer", original_type: "integer", status: { new: false, original: true, modified: false, deleted: false } };
-      let options2 = {table_id: "102", original_name: "username", name: "username", type: "integer", original_type: "integer", status: { new: false, original: true, modified: false, deleted: false } };
+      let options2 = {table_id: "101", original_name: "username", name: "username", type: "integer", original_type: "integer", status: { new: false, original: true, modified: false, deleted: false } };
       let options3 = {name: "name" };
       new Column(options1);
       new Column(options2);
@@ -260,7 +265,7 @@ describe("Column", function() {
 
     it("should find columns by param and update them and status.modified should equal false", function() {
       let options1 = {table_id: "101", original_name: "username", name: "usernam", type: "integer", original_type: "integer", status: { new: false, original: true, modified: true, deleted: false } };
-      let options2 = {table_id: "102", original_name: "username", name: "usernam", type: "integer", original_type: "integer", status: { new: false, original: true, modified: true, deleted: false } };
+      let options2 = {table_id: "101", original_name: "username", name: "usernam", type: "integer", original_type: "integer", status: { new: false, original: true, modified: true, deleted: false } };
       let options3 = { name: "username" };
       new Column(options1);
       new Column(options2);
@@ -318,7 +323,7 @@ describe("Column", function() {
 
     it("should update status.modifed to true if original when name or types differ from original", function() {
       let column1 = {table_id: "101", originalName: "username", name: "usernam", type: "integer", originalType: "integer", status: { new: false, original: true, modified: false, deleted: false } };
-      let column2 = {table_id: "102", originalName: "username", name: "username", type: "integer", originalType: "string", status: { new: false, original: true, modified: false, deleted: false } };
+      let column2 = {table_id: "101", originalName: "username", name: "username", type: "integer", originalType: "string", status: { new: false, original: true, modified: false, deleted: false } };
       let status = { new: false, original: true, modified: true, deleted: false }
 
       assert.equal(false, column1.status.modified);
@@ -349,8 +354,7 @@ describe("Column", function() {
   describe("table()", function() {
 
     it("should return table column belongs to", function() {
-      let tableOpts = {name: "trees", columns: {}, references: {}, status: {} }
-      let table = new Table(tableOpts)
+      let table = Table.find(101)
       let options1 = {table_id: 101, original_name: "username", name: "usernam", type: "integer", original_type: "integer", status: { new: false, original: true, modified: true, deleted: false } };
       new Column(options1);
       let column1 = Column.find(101)
