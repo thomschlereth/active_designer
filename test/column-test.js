@@ -10,7 +10,7 @@ describe("Column", function() {
   });
 
   beforeEach(function() {
-    let tableOpts = {name: "trees", columns: {}, references: {}, status: {} }
+    let tableOpts = { originalName: "users", name: "users", columns: [], references: [], status: { new: false, original: true, modified: false, deleted: false } }
     new Table(tableOpts)
   });
 
