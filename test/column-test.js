@@ -16,6 +16,7 @@ describe("Column", function() {
 
   afterEach(function() {
     Column.collection = {};
+    Table.collection = {};
     Column.idTracker = 101;
     Table.idTracker = 101;
   });
