@@ -48,5 +48,26 @@ describe("Table", function() {
 
   });
 
-  
+  describe("find()", function() {
+    it("should find and return correct column by it's id", function() {
+      let tableOpts1 = { originalName: "users", name: "users", columns: [], references: [], status: { new: false, original: true, modified: false, deleted: false } }
+      let tableOpts2 = { originalName: "messages", name: "messages", columns: [], references: [], status: { new: false, original: true, modified: false, deleted: false } }
+      let table1 = new Table(tableOpts1)
+      let table2 = new Table(tableOpts2)
+      assert.deepEqual(table2, Table.find(102));
+    });
+
+    it("should not be able to find column that is deleted", function() {
+      let tableOpts1 = { originalName: "users", name: "users", columns: [], references: [], status: { new: false, original: true, modified: false, deleted: true } }
+      let table1 = new Table(tableOpts1)
+      // Table.delete(101)
+      assert.deepEqual(false, Table.find(101));
+    });
+
+    it("should return false if column can't be found", function() {
+      assert.deepEqual(false, Table.find(101));
+    });
+
+  });
+
 });
