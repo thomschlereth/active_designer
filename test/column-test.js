@@ -1,13 +1,11 @@
 const assert = require('assert');
-const Column = require('../lib/active_designer/public/js/schema/column.js')
-const Table = require('../lib/active_designer/public/js/schema/table.js')
+const jsdom = require('jsdom');
+const Column = require('../lib/active_designer/public/js/schema/column.js');
+const Table = require('../lib/active_designer/public/js/schema/table.js');
+let window = jsdom.jsdom().defaultView;
+$ = require("jquery")(window);
 
 describe("Column", function() {
-
-  before(() => {
-    let $ = jQuery = require('jquery');
-    global.$ = $;
-  });
 
   beforeEach(function() {
     let tableOpts = { originalName: "users", name: "users", columns: [], references: [], status: { new: false, original: true, modified: false, deleted: false } }

@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/thompickett/active_designer#readme",
   "devDependencies": {
-    "decache": "^4.1.0"
+    "decache": "^4.1.0",
+    "mocha-jsdom": "^1.1.0"
   }
 }
