@@ -178,5 +178,43 @@ describe("Table", function() {
     });
   });
 
+  describe("updateName()", function() {
+    it("should find table by id and update it with new name", function() {
+      let tableOpts1 = { original_name: "user", name: "user", original_status: true }
+      let table1 = new Table(tableOpts1)
+
+      assert.deepEqual("user", table1.name);
+      assert.deepEqual(true, table1.originalStatus);
+      assert.deepEqual(false, table1.modified);
+
+      Table.updateName(table1.id,"users")
+
+      assert.deepEqual("users", table1.name);
+      assert.deepEqual(true, table1.originalStatus);
+      assert.deepEqual(true, table1.modified);
+    });
+
+    it("should update modified to false if update reverts table name to original", function() {
+      let tableOpts1 = { original_name: "users", name: "users", original_status: true }
+      let table1 = new Table(tableOpts1)
+
+      Table.updateName(table1.id,"user")
+
+      assert.deepEqual("user", table1.name);
+      assert.deepEqual(true, table1.originalStatus);
+      assert.deepEqual(true, table1.modified);
+
+      Table.updateName(table1.id,"users")
+
+      assert.deepEqual("users", table1.name);
+      assert.deepEqual(true, table1.originalStatus);
+      assert.deepEqual(false, table1.modified);
+    });
+
+    it("should return false if it can't find column by id", function() {
+      assert.equal(false,Table.updateName(101,"name"))
+    });
+
+  });
 
 });
