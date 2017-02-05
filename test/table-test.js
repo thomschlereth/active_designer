@@ -40,6 +40,7 @@ describe("Table", function() {
     let table1 = new Table(tableOpts1)
     $('body').append(table1.html())
     let table2 = new Table(tableOpts2)
+
     assert.equal(101,table1.id);
     assert.equal("tbl-101",table1.htmlID);
     assert.deepEqual({x: 10, y: 10},table1.coords);
@@ -53,6 +54,7 @@ describe("Table", function() {
     let tableOpts2 = { original_name: "users", name: "user", original_status: true };
     let tableOpts3 = { original_name: "user", name: "users", original_status: true };
     let table = new Table(tableOpts1);
+
     assert.deepEqual({},new Table(tableOpts2));
     assert.deepEqual({},new Table(tableOpts3));
     assert.deepEqual([table],Table.all());
@@ -76,8 +78,8 @@ describe("Table", function() {
       let table1 = new Table(tableOpts1)
       let table2 = new Table(tableOpts2)
       let table3 = new Table(tableOpts3)
-      table3.deleted = true
-      // Table.delete(101)
+      Table.delete(103)
+
       assert.deepEqual([table1,table2],Table.all());
     });
 
@@ -93,14 +95,15 @@ describe("Table", function() {
       let tableOpts2 = { original_name: "messages", name: "messages", original_status: true };
       let table1 = new Table(tableOpts1)
       let table2 = new Table(tableOpts2)
+
       assert.deepEqual(table2, Table.find(102));
     });
 
     it("should not be able to find table that is deleted", function() {
       let tableOpts1 = { original_name: "users", name: "users", original_status: true };
       let table1 = new Table(tableOpts1)
-      table1.deleted = true;
-      // Table.delete(101)
+      Table.delete(101)
+
       assert.deepEqual(false, Table.find(101));
     });
 
@@ -158,6 +161,21 @@ describe("Table", function() {
       assert.deepEqual([], Table.findBy("goop","name"));
     });
 
+  });
+
+  describe("delete()", function() {
+    it("should find table and set status.deleted to true", function() {
+      let tableOpts1 = { original_name: "users", name: "users", original_status: true };
+      let table1 = new Table(tableOpts1);
+
+      assert.equal(false, table1.deleted);
+      Table.delete(101)
+      assert.equal(true, table1.deleted);
+    });
+
+    it("should return false if it can't find table by id", function() {
+      assert.equal(false,Table.delete(101))
+    });
   });
 
 
