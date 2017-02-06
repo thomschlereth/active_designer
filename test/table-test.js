@@ -217,4 +217,14 @@ describe("Table", function() {
 
   });
 
+  describe("columns()", function() {
+
+    it("should return all columns that belong to table", function() {
+      let tableOpts1 = { original_name: "users", name: "users", original_status: true }
+      let table1 = new Table(tableOpts1)
+      assert.deepEqual([], table1.columns);
+    });
+
+  });
+
 });
