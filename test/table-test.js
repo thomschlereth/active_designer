@@ -1,7 +1,9 @@
+process.env.NODE_ENV = 'testing'
 const assert = require('assert');
 const jsdom = require('jsdom');
 const Column = require('../lib/active_designer/public/js/schema/column.js');
 const Table = require('../lib/active_designer/public/js/schema/table.js');
+
 let window = jsdom.jsdom().defaultView;
 $ = require("jquery")(window);
 
@@ -217,14 +219,38 @@ describe("Table", function() {
 
   });
 
-  describe("columns()", function() {
-
-    it("should return all columns that belong to table", function() {
+  describe("addColumns", function() {
+    it("should create column from params and add it to current table", function() {
       let tableOpts1 = { original_name: "users", name: "users", original_status: true }
       let table1 = new Table(tableOpts1)
-      assert.deepEqual([], table1.columns);
-    });
+      let colOptions1 = {table_id: "101", originalName: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
+      table1.addColumn(colOptions1)
 
+      let column1 = Column.find("101")
+      assert.deepEqual([column1], table1.columns);
+    });
   });
+
+  // describe("columns()", function() {
+  //
+  //   it("should return all columns that belong to table", function() {
+  //     let tableOpts1 = { original_name: "users", name: "users", original_status: true }
+  //     let table1 = new Table(tableOpts1)
+  //     assert.deepEqual([], table1.columns);
+  //   });
+  //
+  //   it("should return all columns that belong to table", function() {
+  //     let tableOpts1 = { original_name: "users", name: "users", original_status: true }
+  //     let table1 = new Table(tableOpts1)
+  //
+  //     let options1 = {table_id: "101", originalName: "username", name: "name", type: "integer", status: { new: false, original: true, modified: true, deleted: false } };
+  //     let options2 = {table_id: "101", originalName: "password", name: "password", type: "string", status: { new: false, original: true, modified: false, deleted: false } };
+  //     let column1 = new Column(options1);
+  //     let column2 = new Column(options2);
+  //
+  //     assert.deepEqual([], table1.columns);
+  //   });
+  //
+  // });
 
 });
