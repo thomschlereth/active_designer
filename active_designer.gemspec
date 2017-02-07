@@ -34,7 +34,7 @@ Gem::Specification.new do |s|
   s.name        = 'active_designer'
   s.version     = '0.0.3'
   s.executables << 'active_designer'
-  s.date        = '2017-01-26'
+  s.date        = '2017-02-03'
   s.summary     = summary
   s.description = description
   s.authors     = ["Thom Schlereth"]

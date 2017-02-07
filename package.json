@@ -1,0 +1,23 @@
+{
+  "name": "active_designer",
+  "version": "1.0.0",
+  "description": "Active Designer is a gem that allows a user to easily create a visual format of their Active Record schema.rb file for an SQL database. With just one command from the command line, it creates an HTML file in the root of the user’s Ruby project. Active Designer is an easy to use Visual Interface that opens locally in the browser and works offline to CRUD tables and columns!",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thompickett/active_designer.git"
+  },
+  "author": "Thom",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thompickett/active_designer/issues"
+  },
+  "homepage": "https://github.com/thompickett/active_designer#readme",
+  "devDependencies": {
+    "decache": "^4.1.0",
+    "mocha-jsdom": "^1.1.0"
+  }
+}
