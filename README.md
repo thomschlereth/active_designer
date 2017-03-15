@@ -19,7 +19,7 @@ Done installing documentation for active_designer after 0 seconds
 
 From the root of your project run the command:
 
-`$ active_designer create pathway_to_db e.g(./db/schema.rb)`
+`$ active_designer --create pathway_to_db e.g(./db/schema.rb)`
 
 ```
 Created active_designer/index.html
